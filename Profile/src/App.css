@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@media screen and (max-width: 768px) {
+  .body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6)),
+      url("./assets/Resources/bg picture.png");
+  }
+}
+
+
+.Avatar{
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+ 
+   background-color: #a855f7;
+   padding: 3px;
+   border-left: 2px solid #06b6d4;
+}
+
+.Avatar-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:auto;
+  padding: 20px;
+}
+
+.badge{
+  width:auto;
+  height:23px;
+  font-weight: 500;
+  font-size:20px;
+  background-color:rgb(4, 4, 58);
+  
+}
+
