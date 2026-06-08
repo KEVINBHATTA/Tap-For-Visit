@@ -1,12 +1,13 @@
 import React from 'react';
-import { FaCrown } from "react-icons/fa6";
+import { FaCrown } from "react-icons/fa";
 
 function Post() {
   return (
     <>
-      <span className="badge rounded-pill">
-        <FaCrown /> FOUNDER & CEO
-      </span>
+      <div className="rounded-pill badge">
+        <FaCrown className="badge-icon"/>
+       FOUNDER & CEO
+      </div>
     </>
   );
 }
