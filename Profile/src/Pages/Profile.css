@@ -1,0 +1,270 @@
+@import "tailwindcss";
+*{
+  font-family: 'Outfit', sans-serif;
+}
+
+.element-class::-webkit-scrollbar {
+  display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+  .body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6)),
+      url("../assets/Resources/bg picture.png"); 
+  }
+}
+.Edit-section{
+  display:flex;
+  justify-content: end;
+}
+.Edit{
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+  border: 1px solid white;
+  padding: 9px;
+ margin:10px;
+  background-color: rgba(255, 255, 255, 0.3); ;
+}
+
+#Edit-icon{
+  font-size:1.3rem;
+}
+
+.Avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: #a855f7;
+  padding: 2.5px;
+  border-left: 1.5px solid #06b6d4;
+  box-shadow: 0 0 7px #06b6d4;
+}
+
+.Avatar-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 20px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 150px;
+  height: 25px;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: rgb(4, 4, 58);
+  text-align: center;
+  margin: 1px;
+  border-radius: 9999px;
+  color: #f0c040;
+  padding: 0 30px;
+  white-space: nowrap; /* ADD THIS */
+  border:2px solid rgba(92, 92, 255, 0.671);
+  box-shadow: 0 0 7px #06b6d4;
+}
+
+.badge-icon {
+  display: inline-block; 
+  vertical-align: middle; 
+  font-size: 1.1em;
+  color: #f0c040;
+  flex-shrink: 0;
+  margin-right:5px;
+  margin-bottom: 5px;
+}
+
+.Profile-Name{
+  margin-top: 10px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bolder;
+  color:rgb(255, 255, 255);
+
+
+}
+
+.Company-Name{
+  text-align: center;
+  color:#0d0d1f;
+  font-size:13px;
+  font-weight: bold;
+}
+
+.Location{
+  color:#1a0a2e;
+   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 150px;
+  height: 25px;
+  font-weight: bold;
+  font-size: 12px;
+
+}
+
+.Location-icon{
+  color:#1a0a2e;
+}
+
+#location-text{
+  margin-top: 15px;
+}
+
+
+
+/* Feature component */
+.container{
+  display:flex;
+  width: 100%;
+  height:60px;
+ 
+}
+
+.Box{
+ border: .1px solid white;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#box-1{
+  border-radius: 15px 0 0 15px ;
+}
+
+#box-3{
+  border-radius: 0 15px 15px 0 ;
+}
+
+.Top-text{
+  color:white;
+  font-size: 18px;
+  margin: 4px 0 3px 0;
+}
+
+.Bottom-text{
+
+  margin-bottom: px;
+  color: #050510;
+  font-size:11px;
+}
+
+.horizonal-line{
+  color:rgb(3, 3, 3);
+  margin: 15px 15px 0 15px;
+}
+
+.Hint-text{
+  text-align: left;
+  margin-left: 15px;
+  margin-top: 5px;
+  color: #1a0a2e;
+}
+
+.About-section{
+   height: 120px;
+   border-radius: 15px;
+   padding: 10px 10px 0 10px;
+   margin: 0 15px 0 15px;
+}
+
+.Bio{
+  margin-bottom: 1px;
+}
+
+.Quotes{
+  font-style: italic;
+  color: #0d0d1f;
+}
+
+
+.Contact{
+  height:60px;
+  border-radius: 15px;
+  margin:  0 15px 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size:18px;
+}
+
+.contact-icon-bg{
+  /* background: #15d31b; */
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  padding-top: 13px;
+  
+}
+
+.Green{
+  background-color:#E7E1B1;
+  color:#0D530E; 
+}
+
+.Blue{
+ color: #111844;
+ background-color: #EAE0CF;
+}
+
+.Navy{
+color: #121358;
+background-color: #C4E2F5;
+}
+
+.Red{
+  color: #810B38;
+  background-color: #DCC3AA;
+}
+
+.Dirt{
+  color: #41431B;
+  background-color: #AEB784;
+}
+
+#contact-icon{
+  font-size:1.4rem;
+
+}
+
+.text{
+  color:#212529;
+  text-decoration: none;
+}
+
+.Save-contact-section{
+  height: 40px;
+  background-color:rgba(162, 203, 139, 0.342)  ;
+  margin:40px 15px 15px 15px;
+  border-radius: 10px;
+  border: 1px solid #06202B;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#Savecontact-icon{
+
+  font-size:1.5rem;
+  margin-right: 7px;
+}
+
+#promotion{
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+
+.link{
+  color: #1a0a2e;
+  text-decoration: none;
+}

@@ -1,64 +1,23 @@
-import "./App.css";
-import Avatar from "./components/Avatar";
-import Post from "./components/Post";
-import Location from "./components/Location";
-import Feature from "./components/Feature";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import SaveContact from "./components/SaveContact";
-import Edit from "./components/Edit";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Profile from './Pages/Profile.jsx';
+import ProfileEdits from './Pages/ProfileEdits.jsx';
 
 function App() {
   return (
-    //  for background image
-    <div className="body">
-{/* edit section  */}
-   <Edit/>
-       
-      {/* for Avatar */}
-      <Avatar />
-      {/* // for post section */}
-      <center>
-        <Post />
+    <Router>
 
-        {/* // for Profile Name */}
-        <div className="Profile-Name">KEVIN BHATTA</div>
-        {/* // for Working Company */}
-        <div className="Company-Name"> Tap For Visit · NFC Solutions </div>
+      <Routes>
 
-        {/* for location */}
-        <Location />
+        {/* "/" renders the Home page by default */}
 
-        {/* for feature part */}
-        <Feature />
-        <hr className="horizonal-line" />
+        <Route path="/" element={<Profile />} />
 
-        {/* for about section */}
-        <p className="Hint-text"> About</p>
-        <About />
+        {/* "/about" renders the About page */}
 
-        {/* for contact section  */}
-        <hr className="horizonal-line" />
-        <p className="Hint-text"> Contact</p>
-        <Contact/>
+        <Route path="/ProfileEdits" element={<ProfileEdits />} />
 
-          {/* for Save Contact  */}
-          <SaveContact/>
-
-
-          {/* for promotion  */}
-        <p id='promotion'>
-          Book Your Card Right Now
-         
-         <br/>
-         Powered by <a href='https://tapforvist.com' className="link">Tap For Visit</a> 
-          <a href='https://tapforvist.com' className="text">·  tapforvisit.com</a>
-         
-        </p>
-
-        
-      </center>
-    </div>
+      </Routes>
+    </Router>
   );
 }
 

@@ -12,7 +12,7 @@ function Contact() {
         <div className="contact-icon-bg Green ">
           <FaPhoneAlt id="contact-icon" />
         </div>
-        <div className="w-40">+977-9765637618 </div>
+        <div className="w-40 text-center">+977-9765637618 </div>
         <CiCircleChevRight id="contact-icon" />
       </div>
 
@@ -28,7 +28,7 @@ function Contact() {
         <div className="contact-icon-bg Navy  ">
           <FaLinkedinIn id="contact-icon" />
         </div>
-        <div className="w-40">LinkedIn Profile</div>
+        <div className="w-40 text-center ">LinkedIn Profile</div>
         <CiCircleChevRight id="contact-icon" />
       </div>
 
@@ -37,11 +37,7 @@ function Contact() {
           <IoLogoInstagram id="contact-icon" />
         </div>
         <div className="w-40 ">
-          <a
-            href="https://www.instagram.com/bhatta_kevin/"
-            className="text"
-          >
-            
+          <a href="https://www.instagram.com/bhatta_kevin/" className="text">
             @bhatta_kevin
           </a>
         </div>

@@ -1,0 +1,31 @@
+## 📂 Project Structure
+
+This project is built with **React** and **Vite**, utilizing a component-driven architecture for scalability and clean code management.
+
+```text
+src/
+├── assets/                  # Static assets like images and icons
+│   ├── Resources/           # Dynamic media assets (Backgrounds, Profile pics)
+│   ├── hero.png             # Homepage banner graphic
+│   ├── react.svg
+│   └── vite.svg
+├── components/              # Reusable functional UI components
+│   ├── ProfileEdits/        # Sub-components specific to editing profiles
+│   │   ├── FeatureEdits.jsx
+│   │   └── Header.jsx
+│   ├── About.jsx            # About section layout
+│   ├── Avatar.jsx           # Profile picture handler
+│   ├── Contact.jsx          # Contact information block
+│   ├── Edit-icon.jsx        # SVG/Icon components
+│   ├── Feature.jsx          # Highlights/Featured elements
+│   ├── Location.jsx         # Map or address container
+│   ├── Post.jsx             # Feed or social posts
+│   └── SaveContact.jsx      # Form button/handler to submit contact data
+├── Pages/                   # Main structural viewports / Route pages
+│   ├── Profile.css          # Styling for the Profile viewport
+│   ├── Profile.jsx          # Main Profile page view
+│   ├── ProfileEdits.css     # Styling for the Edit layout view
+│   └── ProfileEdits.jsx     # The Profile Editor dashboard view
+├── App.css                  # Global application styles
+├── App.jsx                  # Main application entry component and routing layout
+└── main.jsx                 # Vite standard DOM injection layer

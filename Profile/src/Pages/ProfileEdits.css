@@ -1,0 +1,222 @@
+.background {
+  background-color: #050510;
+  width: 100%;
+}
+
+.ProfileEdits {
+  background-color: #050510;
+}
+
+.Header-section {
+  background-color: rgba(255, 255, 255, 0.02);
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 0.05px solid white;
+}
+
+.Save-btn {
+  background: rgba(124, 58, 237, 0.2);
+  border: 0.5px solid rgba(124, 58, 237, 0.4);
+  color: #ffffff;
+  width: 60px;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 1px;
+  border-radius: 5px;
+}
+
+.Headline {
+  color: white;
+}
+
+.backicon {
+  color: rgba(168, 85, 247, 0.5);
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  width: 60px;
+  align-items: center;
+}
+
+.camerasection {
+  background-color: #7c3aed;
+  color: #fff;
+  width: 25px;
+  height: 25px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  padding: 2px;
+  position: relative;
+  top: 40px;
+  right: 45px;
+}
+
+.AvatarSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.InfoText {
+  color: #c3b5fd90;
+  font-size: 1rem;
+  position: relative;
+  top: 20px;
+  right: 85px;
+}
+
+.Text {
+  color: #00319a;
+  text-align: left;
+  margin: 10px 0 0 20px;
+}
+
+.HintText {
+  margin-left: 20px;
+  color: #c3b5fd7a;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.label {
+  width: 100%;
+  max-width: 365px;
+  box-sizing: border-box;
+  margin: 0 10px 0 10px;
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+@media screen and (min-width: 768px) {
+  .ProfileEdits {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .label {
+    margin: 0 auto;
+    max-width: 700px;
+  }
+}
+
+.horizonalline {
+  color: rgb(163, 158, 158);
+  font-size: 1.5rem;
+  margin: 15px;
+}
+
+.BioSection {
+  min-height: 100px;
+}
+
+.Contact {
+  height: 60px;
+  border-radius: 15px;
+  margin: 15px 15px 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 18px;
+}
+
+#contacticon {
+  font-size: 1.7rem;
+}
+
+.Box {
+  border: 0.1px solid white;
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.contacticon-bg {
+  /* background: #15d31b; */
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  padding-top: 13px;
+  padding-left: 10px;
+}
+
+.label2 {
+  max-width: 250px;
+  height: 50px;
+  background-color: rgba(70, 65, 65, 0.04) !important;
+  color: white !important;
+}
+
+@media screen and (min-width: 768px) {
+  .label2 {
+    max-width: 500px;
+  }
+
+  .nlink-section {
+    max-width: 500px;
+  }
+}
+
+#delete-icon {
+  color: rgba(239, 68, 68, 1);
+  font-size: 2.2rem;
+}
+
+.label2::placeholder {
+  color: rgb(80, 80, 101) !important;
+}
+
+.nlink-section {
+  width: 380px;
+  height: 40px;
+  border: 1px solid white;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.nlink-section :hover {
+  background-color: Blue;
+}
+
+#addlink {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.GuideText {
+  width: 350px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.Padding {
+  margin: 0 !important;
+}
+
+
+.Save-contact-section{
+  height: 40px;
+  background-color:rgba(37, 29, 61, 0.342)  ;
+  margin:40px 15px 15px 15px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#Savecontact-icon{
+ color:#ffffff;
+  font-size:1.5rem;
+  margin-right: 7px;
+}
+
+#TxtSave{
+  padding-top: 15px;
+  color: #ffffff;
+}
