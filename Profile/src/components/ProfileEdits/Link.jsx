@@ -5,7 +5,7 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { MdDeleteSweep } from "react-icons/md";
 import { FaEarthAsia } from "react-icons/fa6";
 
-function Link() {
+function Link({formData , handleOnChange }) {
   return (
     <div>
       <p className="Text">LINKS</p>
@@ -17,9 +17,12 @@ function Link() {
         </div>
         <input
           type="tel"
-          class="label2 form-control"
+          className="label2 form-control"
           id="form1"
           placeholder="ENTER YOUR PHONE NUMBER"
+           value={formData?.phone}
+         onChange={(e) => handleOnChange('phone',e.target.value)}
+          name="phone"
         />
         <MdDeleteSweep id="delete-icon" />
       </div>
@@ -31,9 +34,12 @@ function Link() {
         </div>
         <input
           type="Email"
-          class="label2 form-control"
+          className="label2 form-control"
           id="form1"
           placeholder="ENTER YOUR MAIL ID"
+           value={formData?.email}
+         onChange={(e) => handleOnChange('email',e.target.value)}
+          name="email"
         />
         <MdDeleteSweep id="delete-icon" />
       </div>
@@ -46,9 +52,12 @@ function Link() {
         </div>
         <input
           type="url"
-          class="label2 form-control"
+          className="label2 form-control"
           id="form1"
           placeholder="ENTER YOUR LINKEDIN URL"
+           value={formData?.linkedin}
+         onChange={(e) => handleOnChange('linkedin',e.target.value)}
+          name="linkedin"
         />
         <MdDeleteSweep id="delete-icon" />
       </div>
@@ -60,9 +69,12 @@ function Link() {
         </div>
         <input
           type="url"
-          class="label2 form-control"
+          className="label2 form-control"
           id="form1"
           placeholder="ENTER YOUR INSTAGRAM URL"
+           value={formData?.instagram}
+         onChange={(e) => handleOnChange('instagram',e.target.value)}
+          name="instagram"
         />
         <MdDeleteSweep id="delete-icon" />
       </div>
@@ -75,9 +87,12 @@ function Link() {
         </div>
         <input
           type="url"
-          class="label2 form-control"
+          className="label2 form-control"
           id="form1"
           placeholder="ENTER YOUR WEBSITE URL"
+           value={formData?.website}
+         onChange={(e) => handleOnChange('website',e.target.value)}
+          name="website"
         />
         <MdDeleteSweep id="delete-icon" />
       </div>

@@ -1,14 +1,15 @@
 import React from 'react'
+import { IoLocationSharp } from "react-icons/io5";
 
-function About() {
+function About({formData}) {
   return (
     <div className='About-section Box'>
       <p className='Bio'>
-Founder of Nepal's first NFC digital business card platform — helping professionals connect smarter, one tap at a time.
-      </p> 
+        {formData?.bio ||  "Founder of Nepal's first NFC digital business card platform — helping professionals connect smarter, one tap at a time." }
+      </p>
        
        <p className='Quotes'>
-        "The future of networking is a single tap."
+       {formData?.quote || "The future of networking is a single tap."}
        </p>
     </div>
   )

@@ -172,10 +172,11 @@
 }
 
 .About-section{
-   height: 120px;
+   min-height: 40px;
    border-radius: 15px;
    padding: 10px 10px 0 10px;
    margin: 0 15px 0 15px;
+  
 }
 
 .Bio{
@@ -240,7 +241,21 @@ background-color: #C4E2F5;
 .text{
   color:#212529;
   text-decoration: none;
+  
 }
+
+#Left{
+  text-align: left;
+  position: relative;
+  top:10px;
+  
+}
+
+.Text-Section{
+  display:flex;
+
+}
+
 
 .Save-contact-section{
   height: 40px;

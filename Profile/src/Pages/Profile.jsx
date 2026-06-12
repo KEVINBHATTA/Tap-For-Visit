@@ -9,8 +9,29 @@ import SaveContact from "../components/SaveContact";
 import Edit from "../components/Edit-icon";
 import './Profile.css';
 import ProfileFooter from '../components/ProfileFooter';
+import { useLocation } from "react-router-dom";
 
 function Profile() {
+    const location = useLocation();
+    // const formData = location.state;
+    const formData = location.state || JSON.parse(localStorage.getItem("profileFormData"));
+
+    console.log("Received User Data:", formData);
+
+   if (location.state) {
+  localStorage.setItem("profileFormData", JSON.stringify(location.state));
+  }
+
+
+    if (!formData) {
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh", color: "#000" }}>
+                <h5>No profile data found. Please navigate from the form.</h5>
+                <Edit/>
+            </div>
+        );
+    }
+
   return (
     <div>
     {/* //  for background image  */}
@@ -25,25 +46,25 @@ function Profile() {
         <Post />
 
         {/* // for Profile Name */}
-        <div className="Profile-Name">KEVIN BHATTA</div>
+        <div className="Profile-Name">{formData?.fullName || "KEVIN BHATTA"}</div>
         {/* // for Working Company */}
-        <div className="Company-Name"> Tap For Visit · NFC Solutions </div>
+        <div className="Company-Name">{formData?.company || "Loading Company ..."} </div>
 
         {/* for location */}
-        <Location />
+        <Location  formData={formData}/>
 
         {/* for feature part */}
-        <Feature />
+        <Feature/>
         <hr className="horizonal-line" />
 
         {/* for about section */}
         <p className="Hint-text"> About</p>
-        <About />
+        <About formData={formData}/>
 
         {/* for contact section  */}
         <hr className="horizonal-line" />
         <p className="Hint-text"> Contact</p>
-        <Contact/>
+        <Contact formData={formData} />
 
           {/* for Save Contact  */}
           <SaveContact/>

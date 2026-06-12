@@ -1,6 +1,8 @@
 import React from "react";
 
-function FeatureEdits() {
+function FeatureEdits({ formData , handleOnChange }) {
+  
+
   return (
     <div className="FeatureEdits">
       <p className="Text">INFO BASIC </p>
@@ -9,9 +11,12 @@ function FeatureEdits() {
       <center>
         <input
           type="text"
-          class="label form-control"
-          id="form1"
+          className="label form-control"
+          id="form0"
           placeholder="ENTER YOUR NAME"
+          value={formData.fullName}
+         onChange={(e) => handleOnChange('fullName',e.target.value)}
+          name="fullName"
         />
       </center>
 
@@ -19,9 +24,12 @@ function FeatureEdits() {
       <center>
         <input
           type="text"
-          class="label form-control"
+          className="label form-control"
           id="form1"
           placeholder="ENTER YOUR JOB POST"
+          value={formData.job}
+         onChange={(e) => handleOnChange('job',e.target.value)}
+          name="job"
         />
       </center>
 
@@ -29,9 +37,12 @@ function FeatureEdits() {
       <center>
         <input
           type="text"
-          class="label form-control"
-          id="form1"
+          className="label form-control"
+          id="form2"
           placeholder="ENTER YOUR COMPANY"
+          onChange={(e) => handleOnChange('company',e.target.value)}
+          value={formData.company}
+          name="company"
         />
       </center>
 
@@ -39,9 +50,12 @@ function FeatureEdits() {
       <center>
         <input
           type="text"
-          class="label form-control"
-          id="form1"
+          className="label form-control"
+          id="form3"
           placeholder="ENTER YOUR LOCATION"
+         onChange={(e) => handleOnChange('location',e.target.value)}
+          value={formData.location}
+          name="location"
         />
       </center>
 
@@ -53,8 +67,11 @@ function FeatureEdits() {
         <input
           type="text"
           className="label BioSection form-control"
-          id="form1"
+          id="form4"
           placeholder="WHAT's YOUR MIND SAY..."
+          onChange={(e) => handleOnChange('bio',e.target.value)}
+          value={formData.bio}
+          name="bio"
         />
       </center>
 
@@ -63,8 +80,11 @@ function FeatureEdits() {
         <input
           type="text"
           class="label form-control"
-          id="form1"
+          id="form5"
           placeholder="WHAT YOU THOUGHT..."
+          onChange={(e) => handleOnChange('quote',e.target.value)}
+          value={formData.quote}
+          name="quote"
         />
       </center>
     </div>
