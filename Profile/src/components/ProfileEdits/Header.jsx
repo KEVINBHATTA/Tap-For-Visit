@@ -2,7 +2,7 @@ import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function Header({onSave}) {
+function Header({ onSave }) {
   return (
     <div className="Header-section">
       <Link className="text-black" to="/">
@@ -17,11 +17,16 @@ function Header({onSave}) {
         onClick={(e) => {
            onSave(e);
       }}> */}
-        <div className="Save-btn">
-          <button onClick={(e) => {
-           onSave(e);}}
-           > Save </button>
-        </div>
+      <div className="Save-btn">
+        <button
+          onClick={(e) => {
+            onSave(e);
+          }}
+        >
+          {" "}
+          Save{" "}
+        </button>
+      </div>
       {/* </Link> */}
     </div>
   );
