@@ -9,29 +9,44 @@ import ToggleSwitch from "../components/ProfileEdits/ToggleSwitch";
 import ProfileFooter from "../components/ProfileFooter";
 import SaveChange from "../components/ProfileEdits/SaveChange";
 import { useNavigate } from "react-router-dom";
+import AvatarPopUp from "../components/ProfileEdits/AvatarPopUp";
 
 function ProfileEdits() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = React.useState({
-    fullName: "",
-    job: "",
-    company: "",
-    location: "",
-    bio: "",
-    quote: "",
-    phone: "",
-    email: "",
-    linkedin: "",
-    instagram: "",
-    website: "",
+
+  const [formData, setFormData] = React.useState(() => {
+    const savedData = localStorage.getItem("profileFormData");
+    
+    if (savedData) {
+      return JSON.parse(savedData);
+    } 
+    
+    return {
+      fullName: "",
+      job: "",
+      company: "",
+      location: "",
+      bio: "",
+      quote: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      instagram: "",
+      website: "",
+      profileImage: "",
+    };
   });
 
-  const handleInputChange = (name, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+ const handleInputChange = (name, value) => {
+    setFormData((prevData) => {
+      const updatedData = {
+        ...prevData,
+        [name]: value,
+      };
+      localStorage.setItem("profileFormData", JSON.stringify(updatedData));
+      return updatedData;
+    });
   };
 
   const handleSave = () => {
@@ -39,18 +54,31 @@ function ProfileEdits() {
     navigate("/", { state: formData });
   };
 
+  const [file, setFile] = React.useState(null);
+  //  for uploading picture open popup
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <div className="background">
       <div className="ProfileEdits">
         <Header onSave={handleSave} />
 
-        <div className="AvatarSection">
-          <Avatar id="PicEdits" />
+        <div className="AvatarSection" onClick={() => setIsOpen(true)}>
+          <Avatar id="PicEdits" file={file}  />
           <div className="camerasection">
             <CiCamera id="cameraicon" />
             <p className="InfoText"> ChangePhoto </p>
           </div>
         </div>
+
+        <AvatarPopUp
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          file={file}
+          setFile={setFile}
+          formData={formData}
+          setFormData={setFormData}
+        />
 
         <FeatureEdits formData={formData} handleOnChange={handleInputChange} />
 

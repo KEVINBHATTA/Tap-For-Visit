@@ -43,7 +43,7 @@ function Profile() {
         <Edit />
 
         {/* for Avatar */}
-        <Avatar />
+        <Avatar file={formData.profileImage} />
         {/* // for post section */}
         <center>
           <Post formData={formData} />

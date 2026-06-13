@@ -198,25 +198,73 @@
   margin: 0 !important;
 }
 
-
-.Save-contact-section{
+.Save-contact-section {
   height: 40px;
-  background-color:rgba(37, 29, 61, 0.342)  ;
-  margin:40px 15px 15px 15px;
+  background-color: rgba(37, 29, 61, 0.342);
+  margin: 40px 15px 15px 15px;
   border-radius: 10px;
   border: 1px solid #ffffff;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#Savecontact-icon{
- color:#ffffff;
-  font-size:1.5rem;
+#Savecontact-icon {
+  color: #ffffff;
+  font-size: 1.5rem;
   margin-right: 7px;
 }
 
-#TxtSave{
+#TxtSave {
   padding-top: 15px;
   color: #ffffff;
+}
+
+/* for  image pop up  */
+.AvatarPopUp {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 330px;
+  height: 400px;
+  background-color: rgb(39, 51, 56);
+  z-index: 1000;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.Cross {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 10px;
+}
+
+.CrossBar {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.Align {
+  position: relative;
+  left: 13px;
+}
+
+.CrossTextSection {
+  background-color: rgba(165, 207, 131, 0.08);
+  min-height: 60px;
+  border-radius: 15px;
+  width: 90%;
+  font-size: 1.2rem;
+  padding-top: 15px;
+  color: #fff;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.CrossText {
+  width: 60%;
+  text-align: left;
 }
