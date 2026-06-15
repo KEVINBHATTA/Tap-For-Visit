@@ -127,7 +127,7 @@
 
 .Box {
   border: 0.1px solid white;
-  background: rgba(255, 255, 255, 0.04);
+  background-color: rgba(255, 255, 255, 0.04);
   border: 0.5px solid rgba(255, 255, 255, 0.09);
   background: rgba(255, 255, 255, 0.08);
 }
@@ -268,3 +268,160 @@
   width: 60%;
   text-align: left;
 }
+
+/* for component StatEdits  */
+.Stat-Edits {
+  width: 93%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.08); /* Clean modern transparency */
+  border-radius: 20px;
+  margin-left: 15px;
+  overflow: hidden; /* Keeps child elements from breaking border radiuses */
+  
+  /* Smooth Entry Effects */
+  animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top center;
+}
+
+.Stat-Detail {
+  min-height: 430px; /* Using min-height prevents rigid content squishing */
+  width: 93%;
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+
+.Stat-Section {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Softer borders look cleaner */
+  border-bottom: none; /* Prevents double border overlapping between stacked rows */
+  padding: 12px 8px;
+  transition: background-color 0.2s ease;
+}
+
+
+.Stat-Section:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+#Stat-Top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+#Stat-Bottom {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Restores bottom border */
+}
+
+.Stat-Label-Value {
+  width: 70%;
+}
+
+.Stat-Label, .Stat-Value {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.Stat-Label {
+  justify-content: space-evenly;
+  margin: 5px 5px 0 0;
+}
+
+.Stat-Value {
+  margin: 10px 5px 10px 0;
+}
+
+/* Improved styling for Bootstrap input text fields */
+.label3 {
+  margin-left: 10px;
+  background-color: #f7f1de !important;
+  font-size: 1.1rem !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.label3:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.Stat-Icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.Stat-Section:hover .Stat-Icon {
+  transform: scale(1.05); 
+}
+
+/*  Preview Panel Layout */
+#Pre-Text {
+  color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.Preview-Container {
+  display: flex;
+  width: 100%;
+  height: 65px;
+}
+
+.Pre-Box {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(15, 14, 14, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.Pre-Box:hover {
+  background-color: rgba(15, 14, 14, 0.6);
+}
+
+#box-1 { border-radius: 15px 0 0 15px; border-right: none; }
+#box-2 { border-right: none; }
+#box-3 { border-radius: 0 15px 15px 0; }
+
+.Pre-Top-text {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.Pre-Bottom-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  margin: 2px 0 0 0;
+  letter-spacing: 0.5px;
+}
+
+/* Animation Keyframes (Smooth Scale-Fade Reveal) */
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+

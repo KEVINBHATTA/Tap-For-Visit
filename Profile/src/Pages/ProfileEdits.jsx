@@ -14,14 +14,13 @@ import AvatarPopUp from "../components/ProfileEdits/AvatarPopUp";
 function ProfileEdits() {
   const navigate = useNavigate();
 
-
   const [formData, setFormData] = React.useState(() => {
     const savedData = localStorage.getItem("profileFormData");
-    
+
     if (savedData) {
       return JSON.parse(savedData);
-    } 
-    
+    }
+
     return {
       fullName: "",
       job: "",
@@ -35,10 +34,16 @@ function ProfileEdits() {
       instagram: "",
       website: "",
       profileImage: "",
+      statLabel1: "",
+      statValue1: "",
+      statLabel2: "",
+      statValue2: "",
+      statLabel3: "",
+      statValue3: "",
     };
   });
 
- const handleInputChange = (name, value) => {
+  const handleInputChange = (name, value) => {
     setFormData((prevData) => {
       const updatedData = {
         ...prevData,
@@ -54,9 +59,10 @@ function ProfileEdits() {
     navigate("/", { state: formData });
   };
 
-  const [file, setFile] = React.useState(null);
   //  for uploading picture open popup
   const [isOpen, setIsOpen] = React.useState(false);
+  //  for uploading picture in Profile
+  const [file, setFile] = React.useState(null);
 
   return (
     <div className="background">
@@ -64,7 +70,7 @@ function ProfileEdits() {
         <Header onSave={handleSave} />
 
         <div className="AvatarSection" onClick={() => setIsOpen(true)}>
-          <Avatar id="PicEdits" file={file}  />
+          <Avatar id="PicEdits" file={file} />
           <div className="camerasection">
             <CiCamera id="cameraicon" />
             <p className="InfoText"> ChangePhoto </p>
@@ -86,7 +92,7 @@ function ProfileEdits() {
 
         <Link formData={formData} handleOnChange={handleInputChange} />
         <hr className="horizontalline" />
-        <ToggleSwitch />
+        <ToggleSwitch formData={formData} handleOnChange={handleInputChange} />
         <SaveChange onSave={handleSave} />
         <ProfileFooter />
       </div>

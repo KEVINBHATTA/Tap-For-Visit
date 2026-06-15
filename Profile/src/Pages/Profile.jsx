@@ -61,7 +61,7 @@ function Profile() {
           <Location formData={formData} />
 
           {/* for feature part */}
-          <Feature />
+          <Feature formData={formData} />
           <hr className="horizonal-line" />
 
           {/* for about section */}

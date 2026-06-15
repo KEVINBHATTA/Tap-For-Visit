@@ -1,6 +1,14 @@
 import React from "react";
+import StatEdits from "./StatEdits";
 
-function ToggleSwitch() {
+function ToggleSwitch({formData, handleOnChange}) {
+
+  const [isOn , setIsOn] = React.useState(false);
+
+  const handleToggleChange = (event) => {
+    setIsOn(event.target.checked);
+  };
+
   return (
     <div className="toggleSwitch">
       <p className="Text"> VISIBILITY </p>
@@ -8,7 +16,7 @@ function ToggleSwitch() {
       <div className="Contact Box FlexBOX">
         <div className="GuideText">
           <p className="text-white fs-5 Padding">Show Location</p>
-          <p className="text-white-50 padding">Display city on your profile</p>
+          <p className="text-white-50 padding">Display your city on profile</p>
         </div>
 
         <div className="form-check form-switch">
@@ -33,9 +41,11 @@ function ToggleSwitch() {
             type="checkbox"
             role="switch"
             id="flexSwitchCheckDefault"
+            onChange={handleToggleChange}
           />
         </div>
       </div>
+      <StatEdits isOn={isOn} formData={formData} handleOnChange={handleOnChange} />
     </div>
   );
 }

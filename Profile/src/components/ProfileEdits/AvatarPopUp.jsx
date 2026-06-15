@@ -9,8 +9,6 @@ import { FaEarthAsia } from "react-icons/fa6";
 function AvatarPopUp({ isOpen, setIsOpen, file, setFile,formData , setFormData }) {
   if (!isOpen) return null;
 
-  // const [file, setFile] = React.useState(null);
-
   const fileInputRef = React.useRef(null);
 
   const handleDivClick = () => {
