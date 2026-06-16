@@ -1,6 +1,8 @@
 import React from 'react'
 
 function Feature({formData}) {
+ if (!formData?.showStat) return null;
+
   return (
     <div className='container'>
     <div className='Box col-4' id='box-1'>

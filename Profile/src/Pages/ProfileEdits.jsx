@@ -40,6 +40,8 @@ function ProfileEdits() {
       statValue2: "",
       statLabel3: "",
       statValue3: "",
+      showLocation: true,
+      showStat: false,
     };
   });
 
@@ -64,6 +66,9 @@ function ProfileEdits() {
   //  for uploading picture in Profile
   const [file, setFile] = React.useState(null);
 
+  // for toggleSwitch for displaying  location
+  // const [showLocation,setShowLocation] = React.useState(false);
+
   return (
     <div className="background">
       <div className="ProfileEdits">
@@ -87,9 +92,7 @@ function ProfileEdits() {
         />
 
         <FeatureEdits formData={formData} handleOnChange={handleInputChange} />
-
         <hr className="horizontalline" />
-
         <Link formData={formData} handleOnChange={handleInputChange} />
         <hr className="horizontalline" />
         <ToggleSwitch formData={formData} handleOnChange={handleInputChange} />

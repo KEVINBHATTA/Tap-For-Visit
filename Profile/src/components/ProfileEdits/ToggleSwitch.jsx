@@ -3,11 +3,16 @@ import StatEdits from "./StatEdits";
 
 function ToggleSwitch({formData, handleOnChange}) {
 
-  const [isOn , setIsOn] = React.useState(false);
+  // const [isOn , setIsOn] = React.useState(false);
 
-  const handleToggleChange = (event) => {
-    setIsOn(event.target.checked);
+  const handleFirstToggleChange = (event) => {
+    handleOnChange("showLocation", event.target.checked);
   };
+
+    const handleSecondToggleChange = (event) => {
+     handleOnChange("showStat", event.target.checked);
+  };
+
 
   return (
     <div className="toggleSwitch">
@@ -24,7 +29,9 @@ function ToggleSwitch({formData, handleOnChange}) {
             className="form-check-input"
             type="checkbox"
             role="switch"
-            id="flexSwitchCheckDefault"
+            id="switchLocation"
+            onChange={handleFirstToggleChange}
+            checked={formData?.showLocation || false} 
           />
         </div>
       </div>
@@ -40,12 +47,13 @@ function ToggleSwitch({formData, handleOnChange}) {
             className="form-check-input"
             type="checkbox"
             role="switch"
-            id="flexSwitchCheckDefault"
-            onChange={handleToggleChange}
+            id="switchStat"
+            checked={formData?.showStat || false }
+            onChange={handleSecondToggleChange}
           />
         </div>
       </div>
-      <StatEdits isOn={isOn} formData={formData} handleOnChange={handleOnChange} />
+      <StatEdits formData={formData} handleOnChange={handleOnChange}  />
     </div>
   );
 }

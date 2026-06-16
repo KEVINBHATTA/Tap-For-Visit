@@ -3,8 +3,8 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 import { FaBriefcase } from "react-icons/fa";
 
-function StatEdits({ isOn,formData, handleOnChange }) {
-  if (!isOn) return null;
+function StatEdits({formData, handleOnChange }) {
+  if (!formData?.showStat) return null;
 
   const statField = [
     {
