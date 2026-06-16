@@ -74,7 +74,7 @@ function Profile() {
           <Contact formData={formData} />
 
           {/* for Save Contact  */}
-          <SaveContact />
+          <SaveContact formData={formData} />
 
           <ProfileFooter />
         </center>
