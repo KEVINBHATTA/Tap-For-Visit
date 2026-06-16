@@ -163,6 +163,11 @@
   font-size: 2.2rem;
 }
 
+
+/* for */
+
+
+
 .label2::placeholder {
   color: rgb(80, 80, 101) !important;
 }
