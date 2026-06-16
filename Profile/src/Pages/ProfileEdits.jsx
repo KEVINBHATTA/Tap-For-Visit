@@ -12,37 +12,40 @@ import { useNavigate } from "react-router-dom";
 import AvatarPopUp from "../components/ProfileEdits/AvatarPopUp";
 
 function ProfileEdits() {
+const defaultProfileData = {
+  fullName: "",
+  job: "",
+  company: "",
+  location: "",
+  bio: "",
+  quote: "",
+  phone: "",
+  email: "",
+  linkedin: "",
+  instagram: "",
+  website: "",
+  profileImage: "",
+  statLabel1: "",
+  statValue1: "",
+  statLabel2: "",
+  statValue2: "",
+  statLabel3: "",
+  statValue3: "",
+  showLocation: true,
+  showStat: false,
+};
+
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = React.useState(() => {
     const savedData = localStorage.getItem("profileFormData");
 
     if (savedData) {
-      return JSON.parse(savedData);
+     return { ...defaultProfileData, ...JSON.parse(savedData) };
     }
 
-    return {
-      fullName: "",
-      job: "",
-      company: "",
-      location: "",
-      bio: "",
-      quote: "",
-      phone: "",
-      email: "",
-      linkedin: "",
-      instagram: "",
-      website: "",
-      profileImage: "",
-      statLabel1: "",
-      statValue1: "",
-      statLabel2: "",
-      statValue2: "",
-      statLabel3: "",
-      statValue3: "",
-      showLocation: true,
-      showStat: false,
-    };
+    return defaultProfileData;
   });
 
   const handleInputChange = (name, value) => {
@@ -56,8 +59,10 @@ function ProfileEdits() {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
     console.log("Submitted Form Data:", formData);
+    localStorage.setItem("profileFormData", JSON.stringify(formData));
     navigate("/", { state: formData });
   };
 
@@ -65,9 +70,6 @@ function ProfileEdits() {
   const [isOpen, setIsOpen] = React.useState(false);
   //  for uploading picture in Profile
   const [file, setFile] = React.useState(null);
-
-  // for toggleSwitch for displaying  location
-  // const [showLocation,setShowLocation] = React.useState(false);
 
   return (
     <div className="background">
