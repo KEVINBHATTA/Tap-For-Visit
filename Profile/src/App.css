@@ -1,26 +1,66 @@
-.Green{
-  background-color:#E7E1B1;
-  color:#0D530E; 
+/* for color of an icon in link  */
+/*  Phone */
+.Green {
+  background-color: #E7E1B1;
+  color: #0D530E; 
+  --glow-color: rgba(13, 83, 14, 0.25); /* Soft deep green mist */
 }
 
-.Blue{
- color: #111844;
- background-color: #EAE0CF;
+/* Email */
+.Blue {
+  color: #111844;
+  background-color: #EAE0CF;
+  --glow-color: rgba(17, 24, 68, 0.2);
 }
 
-.Navy{
-color: #121358;
-background-color: #C4E2F5;
+/* LinkedIn */
+.Navy {
+  color: #121358;
+  background-color: #C4E2F5;
+  --glow-color: rgba(18, 19, 88, 0.25);
 }
 
-.Red{
+/* Instagram */
+.Red {
   color: #810B38;
   background-color: #DCC3AA;
+  --glow-color: rgba(129, 11, 56, 0.25);
 }
 
-.Dirt{
+/* YouTube */
+.DarkRed {
+  color: #ff0000;
+  background-color: #FFE5BF;
+  --glow-color: rgba(255, 0, 0, 0.2);
+}
+
+/* Facebook */
+.RoyalBlue {
+  color: #1877f2;
+  background-color: #D9F9DF;
+  --glow-color: rgba(24, 119, 242, 0.25);
+}
+
+/* TikTok */
+.Black {
+  background-color: #000;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  --glow-color: rgba(255, 255, 255, 0.15); /* Soft silver outline halo */
+}
+
+/* X (Twitter) */
+.MatteBlack {
+  color: #15202b; 
+  background-color: #DDDDDD;
+  --glow-color: rgba(21, 32, 43, 0.2);
+}
+
+/* website */
+.Dirt {
   color: #41431B;
   background-color: #AEB784;
+  --glow-color: rgba(65, 67, 27, 0.25);
 }
 
 .FlexBox{

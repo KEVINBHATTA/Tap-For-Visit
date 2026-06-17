@@ -133,12 +133,31 @@
 }
 
 .contacticon-bg {
-  /* background: #15d31b; */
-  width: 50px;
+width: 50px;
   height: 50px;
   border-radius: 15px;
-  padding-top: 13px;
-  padding-left: 10px;
+  display: flex;
+  align-items: center;   
+  justify-content: center;  
+  /* 🧹 Clean up: Wipes out the old padding completely */
+  padding: 0; 
+  box-sizing: border-box;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              filter 0.25s ease;
+  box-shadow: 0 0 0 transparent;
+}
+
+.Contact:hover .contacticon-bg,
+.Icon-bank:hover .contacticon-bg {
+  transform: translateY(-2px); /* Gentle micro-lift */
+  filter: brightness(1.04);     /* Tiny illumination lift */
+  
+  /* AI */
+  /* 🌌 Mathematical Soft Blur Layering:
+     0px horizontal/vertical offset, a wide 20px blur spread, 
+     running on your custom background color profile variable */
+  box-shadow: 0 4px 20px 2px var(--glow-color);
 }
 
 .label2 {
@@ -163,6 +182,17 @@
   font-size: 2.2rem;
 }
 
+
+/* for */
+
+.IconSize{
+  font-size: 1.6rem !important;
+  font-weight: 900 !important;
+  
+}
+
+
+
 .label2::placeholder {
   color: rgb(80, 80, 101) !important;
 }
@@ -175,17 +205,149 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 15px;
-  margin-top: 15px;
-}
-
-.nlink-section :hover {
-  background-color: Blue;
+  padding-top: 5px;
+  /* margin-top: 15px; */
 }
 
 #addlink {
   color: white;
   font-size: 1.2rem;
+  margin-bottom: 10px;
+  
+}
+
+.Icon-bank-drawer{
+  min-height: 100px;
+  background-color: #273338;
+  width: 90%;
+  text-align: center;
+  padding: 10px;
+  margin-top:10px;
+  border-radius: 15px;
+  border: .5px solid white;
+  transition: opacity 0.4s ease, display 0.4s ease allow-discrete;
+}
+
+.Icon-bank{
+background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-bank-grid{
+display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 10px;
+  
+}
+
+.icon-bank-title{
+  color: white;
+  margin-bottom: 12px;
+
+}
+
+@keyframes drawerPopOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* Ensure the grid wraps and distributes evenly */
+  .icon-bank-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+    gap: 4%; 
+    padding: 10px 0;
+  }
+
+  /* Force each item to take up exactly 1/3 of the row minus gaps */
+  .Icon-bank {
+    flex: 0 0 30%; 
+    max-width: 30%;
+    margin-bottom: 15px; /* Adds space before wrapping down to the next line */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* for color of an icon in link  */
+/*  Phone */
+.Green {
+  background-color: #E7E1B1;
+  color: #0D530E; 
+  --glow-color: rgba(13, 83, 14, 0.25); /* Soft deep green mist */
+}
+
+/* Email */
+.Blue {
+  color: #111844;
+  background-color: #EAE0CF;
+  --glow-color: rgba(17, 24, 68, 0.2);
+}
+
+/* LinkedIn */
+.Navy {
+  color: #121358;
+  background-color: #C4E2F5;
+  --glow-color: rgba(18, 19, 88, 0.25);
+}
+
+/* Instagram */
+.Red {
+  color: #810B38;
+  background-color: #DCC3AA;
+  --glow-color: rgba(129, 11, 56, 0.25);
+}
+
+/* YouTube */
+.DarkRed {
+  color: #ff0000;
+  background-color: #FFE5BF;
+  --glow-color: rgba(255, 0, 0, 0.2);
+}
+
+/* Facebook */
+.RoyalBlue {
+  color: #1877f2;
+  background-color: #D9F9DF;
+  --glow-color: rgba(24, 119, 242, 0.25);
+}
+
+/* TikTok */
+.Black {
+  background-color: #000;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  --glow-color: rgba(255, 255, 255, 0.15); /* Soft silver outline halo */
+}
+
+/* X (Twitter) */
+.MatteBlack {
+  color: #15202b; 
+  background-color: #DDDDDD;
+  --glow-color: rgba(21, 32, 43, 0.2);
+}
+
+/* website */
+.Dirt {
+  color: #41431B;
+  background-color: #AEB784;
+  --glow-color: rgba(65, 67, 27, 0.25);
 }
 
 .GuideText {
