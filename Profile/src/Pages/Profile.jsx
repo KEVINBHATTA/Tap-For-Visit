@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "../components/Avatar";
 import Post from "../components/Post";
 import Location from "../components/Location";
-import Feature from "../components/Feature";
+import Feature from "../components/Stat1";
 import About from "../components/About";
 import Contact from "../components/Contact";
 import SaveContact from "../components/SaveContact";

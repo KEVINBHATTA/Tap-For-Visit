@@ -5,7 +5,7 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { MdDeleteSweep } from "react-icons/md";
 import { FaEarthAsia, FaYoutube, FaFacebookF, FaTiktok, FaXTwitter} from "react-icons/fa6";
 
-function Link({ formData, handleOnChange }) {
+function Link({ formData, handleOnChange, allPlatforms  }) {
   const ALL_PLATFORMS = {
     phone: {
       label: "PHONE NUMBER",

@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+ .ProfileTempContentCreator {
+  font-family: 'Inter', sans-serif;
+}
+
+
+.Avatar-content {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: #a855f7;
+  border: 3.5px solid transparent;
+  background-image:
+    linear-gradient(rgb(145, 35, 35), rgb(19, 74, 255)), linear-gradient(135deg, #667eea, #764ba2);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.Avatar-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 20px;
+}
+
+.Badge-Section{
+  display: flex;
+  justify-content: center;
+}
+
+.Badge{
+  width: 200px ;
+  background-color: black;
+  height: 30px;
+  color: white;
+  text-align: center;
+  padding-top: 4px;
+  border-radius: 15px;
+  font-size: 1.02rem;
+}
+
+.Name{
+  color: black;
+  font-weight: 900;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.Stat-Section{
+  display:flex;
+  justify-content: space-evenly;
+}
+
+.Stat-Box{
+  width:30%;
+  height:80px;
+  text-align: center;
+  padding-top: 3px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  backdrop-filter: blur(15px) to blur(25px);
+  border:1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.15) to rgba(255, 255, 255, 0.35);
+}
+
+.Glass-Morphism{
+  border-radius: 15px;
+   margin-bottom: 10px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  backdrop-filter: blur(15px) to blur(25px);
+  border:1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.15) to rgba(255, 255, 255, 0.35);
+
+}
+
+#Box1{
+  color:#EF4444;
+}
+
+#Box2{
+  color:#EC4899;
+}
+
+#Box3{
+ color: #1D9BF0;
+}
+
+.Top-Text{
+  font-size:1.7rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.Hint-Text{
+  font-weight: 400;
+  margin-left: 15px;
+}
+
+.About-Section{
+  width:90%;
+  padding:10px;
+  min-height: 150px;
+   border-radius: 15px;
+   margin-bottom: 10px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  backdrop-filter: blur(15px) to blur(25px);
+  border:1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.15) to rgba(255, 255, 255, 0.35);
+ color: black;
+
+}
+
+.Signature-Section-2{
+  display: flex;
+  justify-content: center;
+}
+
+#Sign-text{
+  margin-left: 10px;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.Contact-Box-Temp{
+  height:70px;
+width: 90%;
+display:flex;
+}
+
+
+.contact-icon-bg{
+  /* background: #15d31b; */
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  padding-top: 13px;
+  
+}
+
+
+#Left-Temp2{
+  text-align: left;
+  position: relative;
+  top:10px;
+  
+}
+
+.text{
+  color:#212529;
+  text-decoration: none;
+  
+}
+
+.Temp2-Btn-Section{
+  width:100%;
+}
+
+
+.Temp2-Btn{
+width: 90%;
+height:40px;
+padding-top: 10px;
+}
