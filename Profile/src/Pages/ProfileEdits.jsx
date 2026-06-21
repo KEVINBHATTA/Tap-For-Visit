@@ -13,6 +13,9 @@ import AvatarPopUp from "../components/ProfileEdits/AvatarPopUp";
 
 function ProfileEdits() {
 const defaultProfileData = {
+  userName:"",
+  url:"",
+  template:"",
   fullName: "",
   job: "",
   company: "",
