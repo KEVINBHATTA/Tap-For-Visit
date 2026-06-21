@@ -285,6 +285,8 @@ display: flex;
   }
 }
 
+
+
 /* for color of an icon in link  */
 /*  Phone */
 .Green {
@@ -307,17 +309,25 @@ display: flex;
   --glow-color: rgba(18, 19, 88, 0.25);
 }
 
-/* Instagram */
+/* work porfolio  */
 .Red {
   color: #810B38;
   background-color: #DCC3AA;
   --glow-color: rgba(129, 11, 56, 0.25);
 }
 
+
+/* Instagram */
+.Gradient-Red{
+  color: white;
+  --glow-color: rgba(188, 24, 136, 0.25);
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
 /* YouTube */
 .DarkRed {
-  color: #ff0000;
-  background-color: #FFE5BF;
+  color: white;
+  background-color: Red;
   --glow-color: rgba(255, 0, 0, 0.2);
 }
 

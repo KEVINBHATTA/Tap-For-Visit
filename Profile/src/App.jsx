@@ -7,21 +7,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* "/" renders the Home page by default */}
-
         <Route path="/" element={<Profile />} />
-
-        {/* "/about" renders the About page */}
-
         <Route path="/ProfileEdits" element={<ProfileEdits />} />
-
-        <Route
-          path="/Template2"
-          element={<Template2 />}
-        />
-        
-      </Routes>
-    </Router>
+         <Route path="/Template2" element={<Template2 />} />
+       </Routes>
+     </Router>
   );
 }
 

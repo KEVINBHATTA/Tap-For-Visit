@@ -9,6 +9,7 @@ import About from "../components/Template2/About";
 import Contact from "../components/Template2/Contact";
 import BookContact from "../components/Template2/BookContact";
 import ProfileFooter from "../components/ProfileFooter";
+import Socials from "../components/Template2/Socials";
 
 function Template() {
   const location = useLocation();
@@ -75,8 +76,13 @@ function Template() {
 <p className="Hint-Text">CONTACT</p>
 <Contact/>
 
+
+<p className="Hint-Text">SOCIALS</p>
+
+<Socials formData={formData}/>
+
+
 {/* for book me and contact me  */}
-<p className="Hint-Text">CONTACT</p>
 <BookContact/>
 
 <ProfileFooter/>

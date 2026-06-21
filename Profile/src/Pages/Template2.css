@@ -60,7 +60,7 @@
   padding-top: 3px;
   border-radius: 15px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
-  backdrop-filter: blur(15px) to blur(25px);
+  backdrop-filter: blur(15px);
   border:1px solid rgba(255, 255, 255, 0.4);
   background-color: rgba(255, 255, 255, 0.15) to rgba(255, 255, 255, 0.35);
 }
@@ -162,4 +162,23 @@ display:flex;
 width: 90%;
 height:40px;
 padding-top: 10px;
+}
+
+.Social-Section{
+  Width:90%;
+  min-height: 120px;
+    margin: 0 auto; 
+    margin-bottom: 10px;
+}
+.hidden-url-link {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: none !important; /* Removes the underline */
+  color: #ffffff !important;
 }
