@@ -70,7 +70,7 @@ const defaultProfileData = {
     if (e && e.preventDefault) e.preventDefault();
     console.log("Submitted Form Data:", formData);
     localStorage.setItem("profileFormData", JSON.stringify(formData));
-    navigate("/", { state: formData });
+    navigate(`/${formData?.userName}`, { state: formData });
   };
 
   //  for uploading picture open popup
@@ -81,7 +81,7 @@ const defaultProfileData = {
   return (
     <div className="background">
       <div className="ProfileEdits">
-        <Header onSave={handleSave} />
+        <Header onSave={handleSave} formData={formData} />
 
         <div className="AvatarSection" onClick={() => setIsOpen(true)}>
           <Avatar id="PicEdits" file={file} />

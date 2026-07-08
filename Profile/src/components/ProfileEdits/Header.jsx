@@ -2,10 +2,11 @@ import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function Header({ onSave }) {
+function Header({ onSave , formData }) {
+  const username = formData?.username || formData?.userName || "username";
   return (
     <div className="Header-section">
-      <Link className="text-black" to="/">
+      <Link className="text-black" to={`/${username}`}>
         <div className="backicon">
           <FaArrowLeft /> Profile
         </div>
@@ -21,10 +22,11 @@ function Header({ onSave }) {
         <button
           onClick={(e) => {
             onSave(e);
+            
           }}
         >
-          {" "}
-          Save{" "}
+          
+          Save
         </button>
       </div>
       {/* </Link> */}
