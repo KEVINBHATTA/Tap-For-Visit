@@ -12,36 +12,35 @@ import { useNavigate } from "react-router-dom";
 import AvatarPopUp from "../components/ProfileEdits/AvatarPopUp";
 
 function ProfileEdits() {
-const defaultProfileData = {
-  userName:"",
-  url:"",
-  template:"",
-  fullName: "",
-  job: "",
-  company: "",
-  location: "",
-  bio: "",
-  quote: "",
-  phone: "",
-  email: "",
-  linkedin: "",
-  instagram: "",
-  youtube: "",
-  facebook: "",
-  tiktok: "",
-  x: "",
-  website: "",
-  profileImage: "",
-  statLabel1: "",
-  statValue1: "",
-  statLabel2: "",
-  statValue2: "",
-  statLabel3: "",
-  statValue3: "",
-  showLocation: true,
-  showStat: false,
-};
-
+  const defaultProfileData = {
+    userName: "",
+    url: "",
+    template: "",
+    fullName: "",
+    job: "",
+    company: "",
+    location: "",
+    bio: "",
+    quote: "",
+    phone: "",
+    email: "",
+    linkedin: "",
+    instagram: "",
+    youtube: "",
+    facebook: "",
+    tiktok: "",
+    x: "",
+    website: "",
+    profileImage: "",
+    statLabel1: "",
+    statValue1: "",
+    statLabel2: "",
+    statValue2: "",
+    statLabel3: "",
+    statValue3: "",
+    showLocation: true,
+    showStat: false,
+  };
 
   const navigate = useNavigate();
 
@@ -49,7 +48,7 @@ const defaultProfileData = {
     const savedData = localStorage.getItem("profileFormData");
 
     if (savedData) {
-     return { ...defaultProfileData, ...JSON.parse(savedData) };
+      return { ...defaultProfileData, ...JSON.parse(savedData) };
     }
 
     return defaultProfileData;
@@ -66,11 +65,52 @@ const defaultProfileData = {
     });
   };
 
-  const handleSave = (e) => {
+  // const handleSave = (e) => {
+  //   if (e && e.preventDefault) e.preventDefault();
+  //   console.log("Submitted Form Data:", formData);
+  //   localStorage.setItem("profileFormData", JSON.stringify(formData));
+  //   navigate(`/${formData?.userName}`, { state: formData });
+  // };
+
+  const handleSave = async (e) => {
     if (e && e.preventDefault) e.preventDefault();
-    console.log("Submitted Form Data:", formData);
-    localStorage.setItem("profileFormData", JSON.stringify(formData));
-    navigate(`/${formData?.userName}`, { state: formData });
+    // localStorage.setItem("profileFormData", JSON.stringify(formData));
+    console.log("Submitting Form Data to Server:", formData);
+
+    try {
+      //live network PUT request to your server
+      const response = await fetch(
+  `${import.meta.env.VITE_API_URL}/api/userProfile/update/${formData.userName}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData), // Sends your flat formData object
+        },
+      );
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        console.log("Database update successful:", result.message);
+
+        // 2. Keep localStorage updated as a backup fallback
+        localStorage.setItem("profileFormData", JSON.stringify(formData));
+
+        // 3. Navigate away to the user's profile view
+        navigate(`/${formData?.userName}`, { state: formData });
+      } else {
+        // If server returns a 404 or validation error
+        alert(`Failed to save profile: ${result.message || "Unknown error"}`);
+      }
+    } catch (error) {
+      // Catches total network dropouts if the server is offline
+      console.error("Network error connecting to API:", error);
+      alert(
+        "Could not connect to the backend server. Make sure it is running!",
+      );
+    }
   };
 
   //  for uploading picture open popup
