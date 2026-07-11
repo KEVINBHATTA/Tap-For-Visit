@@ -9,63 +9,63 @@ function Socials({ formData }) {
       label: "LINKEDIN URL",
       icon: <FaLinkedinIn className="IconSize" />,
       color: "Navy",
-      type: "url",
     },
     instagram: {
       label: "INSTAGRAM URL",
       icon: <IoLogoInstagram className="IconSize" size={34} />,
       color: "Gradient-Red",
-      type: "url",
     },
     youtube: {
       label: "YOUTUBE URL",
       icon: <FaYoutube className="IconSize" size={32} />,
       color: "DarkRed",
-      type: "url",
     },
     facebook: {
       label: "FACEBOOK URL",
       icon: <FaFacebookF className="IconSize" size={28} />,
       color: "RoyalBlue",
-      type: "url",
     },
     tiktok: {
       label: "TIKTOK URL",
       icon: <FaTiktok className="IconSize" size={27} />,
       color: "Black",
-      type: "url",
     },
     x: {
       label: "X TWITTER URL",
       icon: <FaXTwitter className="IconSize" size={26} />,
       color: "MatteBlack",
-      type: "url",
     },
     website: {
       label: "WEBSITE URL",
       icon: <FaEarthAsia className="IconSize" />,
       color: "Dirt",
-      type: "url",
     },
   };
 
   const keys = Object.keys(ALL_PLATFORMS);
-        
 
-  const activePlatforms = keys.filter(
-    (key) => formData?.[key] && formData[key].trim() !== ""
-  );
 
-  // If the user hasn't filled out any links, render nothing or a subtle message
+  const getPlatformLink = (key) => {
+    return formData?.[key] || formData?.socials?.[key];
+  };
+
+  const activePlatforms = keys.filter((key) => {
+    const link = getPlatformLink(key);
+    return link && link.trim() !== "";
+  });
+
+  // If the user hasn't filled out any links, return null cleanly
   if (activePlatforms.length === 0) return null;
 
   return (
     <div className='Social-Section Glass-Morphism p-4 '>
       <div className="icon-bank-grid">
-    
         {activePlatforms.map((key) => {
           const item = ALL_PLATFORMS[key];
-          const userLink = formData[key];
+          const rawLink = getPlatformLink(key);
+          
+          // Force standard URL routing links to include proper transfer protocol strings if omitted
+          const userLink = rawLink.startsWith("http") ? rawLink : `https://${rawLink}`;
 
           return (
             <a
@@ -80,7 +80,7 @@ function Socials({ formData }) {
                 {item.icon}
               </div>
               <span className="text-white">
-                {key.charAt(0).toUpperCase() + key.slice(1)}
+                {key === 'x' ? 'X' : key.charAt(0).toUpperCase() + key.slice(1)}
               </span>
             </a>
           );
