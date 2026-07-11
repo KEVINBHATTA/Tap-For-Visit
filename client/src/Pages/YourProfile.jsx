@@ -8,14 +8,13 @@ function YourProfile({ profileData }) {
   const { username } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false); // 
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    //Reset states whenever the URL username parameter changes
     setLoading(true);
     setNotFound(false);
 
-    //If parent passed data explicitly AND it matches the current URL user, use it
+    // 1. MATCH PASSING PROPS FIRST (Active Session Creator)
     if (profileData && Object.keys(profileData).length > 0 && 
        (profileData.userName?.toLowerCase() === username?.toLowerCase() || profileData.username?.toLowerCase() === username?.toLowerCase())) {
       setData(profileData);
@@ -23,7 +22,16 @@ function YourProfile({ profileData }) {
       return;
     }
 
-    //Fetch from the database live
+    // 2. MATCH LOCAL STORAGE SECOND (Fresh Signup/Refresh Fallback)
+    const localFormData = JSON.parse(localStorage.getItem("profileFormData"));
+    if (localFormData && 
+       (localFormData.userName?.toLowerCase() === username?.toLowerCase() || localFormData.username?.toLowerCase() === username?.toLowerCase())) {
+      setData(localFormData);
+      setLoading(false);
+      return;
+    }
+
+    // 3. NO LOCAL MATCH? THEN GO QUERY THE PUBLIC INTERNET/DATABASE
     const fetchProfile = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/userProfile/${username}`);
@@ -32,7 +40,6 @@ function YourProfile({ profileData }) {
         if (result.success && result.data) {
           setData(result.data);
         } else {
-          // Server returned success: false -> profile genuinely does not exist in MongoDB!
           setNotFound(true);
         }
       } catch (error) {
@@ -55,14 +62,12 @@ function YourProfile({ profileData }) {
     );
   }
 
-  // 2. Clean 404 Custom Error Screen (Bypasses localStorage entirely!)
+  // 404 Trigger State
   if (notFound) {
-    return (
-      <PageNotFound username={username}/> 
-    );
+    return <PageNotFound username={username} />;
   }
 
-  // 3. Normal Layout Rendering if user is found!
+  // Normal Layout Rendering
   const finalData = data || {};
   const chosenTemplate = finalData.selectedTemplate || finalData.template;
 

@@ -21,17 +21,17 @@ function Template() {
     localStorage.setItem("profileFormData", JSON.stringify(location.state));
   }
 
-  if (!formData) {
-    return (
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "100vh", color: "#000" }}
-      >
-        <h5>No profile data found. Please navigate from the form.</h5>
-        <Edit />
-      </div>
-    );
-  }
+  // if (!formData) {
+  //   return (
+  //     <div
+  //       className="d-flex justify-content-center align-items-center"
+  //       style={{ height: "100vh", color: "#000" }}
+  //     >
+  //       <h5>No profile data found. Please navigate from the form.</h5>
+  //       <Edit />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className=" relative min-h-screen overflow-hidden">

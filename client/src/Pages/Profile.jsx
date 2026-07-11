@@ -11,69 +11,64 @@ import "./Profile.css";
 import ProfileFooter from "../components/ProfileFooter";
 import { useLocation } from "react-router-dom";
 
-function Profile() {
+// 1. Notice we add { profileData } directly into the function arguments here!
+function Profile({ profileData }) {
   const location = useLocation();
-  // const formData = location.state;
+
+  // 2. Choose the data source cleanly: 
+  // Priority 1: Prop from DB/State, Priority 2: Direct React Navigation State, Priority 3: Local Storage
   const formData =
-    location.state || JSON.parse(localStorage.getItem("profileFormData"));
+    profileData ||
+    location.state ||
+    JSON.parse(localStorage.getItem("profileFormData")) ||
+    {}; // Fallback to empty object if all else fails to prevent crashing
 
-  console.log("Received User Data:", formData);
+  console.log("Received User Data inside Profile component:", formData);
 
+  // If data came from navigation state, save it locally for back-navigation buffers
   if (location.state) {
     localStorage.setItem("profileFormData", JSON.stringify(location.state));
   }
 
-  if (!formData) {
-    return (
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "100vh", color: "#000" }}
-      >
-        <h5>No profile data found. Please navigate from the form.</h5>
-        <Edit />
-      </div>
-    );
-  }
-
   return (
     <div>
-      {/* //  for background image  */}
       <div className="body">
-        {/* edit section  */}
+        {/* edit section */}
         <Edit />
 
-        {/* for Avatar */}
-        <Avatar file={formData.profileImage} />
-        {/* // for post section */}
+        {/* 3. Added standard optional chaining (?.) so undefined states never break the render tree */}
+        <Avatar file={formData?.profileImage} />
+        
         <center>
           <Post formData={formData} />
 
-          {/* // for Profile Name */}
+          {/* Profile Name */}
           <div className="Profile-Name">
             {formData?.fullName || "KEVIN BHATTA"}
           </div>
-          {/* // for Working Company */}
+          
+          {/* Working Company */}
           <div className="Company-Name">
-            {formData?.company || "Loading Company ..."}{" "}
+            {formData?.company || "Loading Company ..."}
           </div>
 
-          {/* for location */}
+          {/* Location */}
           <Location formData={formData} />
 
-          {/* for feature part */}
+          {/* Feature part */}
           <Feature formData={formData} />
           <hr className="horizonal-line" />
 
-          {/* for about section */}
-          <p className="Hint-text"> About</p>
+          {/* About section */}
+          <p className="Hint-text">About</p>
           <About formData={formData} />
 
-          {/* for contact section  */}
+          {/* Contact section */}
           <hr className="horizonal-line" />
-          <p className="Hint-text"> Contact</p>
+          <p className="Hint-text">Contact</p>
           <Contact formData={formData} />
 
-          {/* for Save Contact  */}
+          {/* Save Contact */}
           <SaveContact formData={formData} />
 
           <ProfileFooter />
