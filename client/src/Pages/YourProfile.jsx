@@ -26,7 +26,7 @@ function YourProfile({ profileData }) {
     //Fetch from the database live
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/userProfile/${username}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/userProfile/${username}`);
         const result = await response.json();
 
         if (result.success && result.data) {
