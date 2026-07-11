@@ -1,0 +1,599 @@
+.background {
+  background-color: #050510;
+  width: 100%;
+}
+
+.ProfileEdits {
+  background-color: #050510;
+}
+
+.Header-section {
+  background-color: rgba(255, 255, 255, 0.02);
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 0.05px solid white;
+}
+
+.Save-btn {
+  background: rgba(124, 58, 237, 0.2);
+  border: 0.5px solid rgba(124, 58, 237, 0.4);
+  color: #ffffff;
+  width: 60px;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 1px;
+  border-radius: 5px;
+}
+
+.Headline {
+  color: white;
+}
+
+.backicon {
+  color: rgba(168, 85, 247, 0.5);
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  width: 60px;
+  align-items: center;
+}
+
+.camerasection {
+  background-color: #7c3aed;
+  color: #fff;
+  width: 25px;
+  height: 25px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  padding: 2px;
+  position: relative;
+  top: 40px;
+  right: 45px;
+}
+
+.AvatarSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.InfoText {
+  color: #c3b5fd90;
+  font-size: 1rem;
+  position: relative;
+  top: 20px;
+  right: 85px;
+}
+
+.Text {
+  color: #00319a;
+  text-align: left;
+  margin: 10px 0 0 20px;
+}
+
+.HintText {
+  margin-left: 20px;
+  color: #c3b5fd7a;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.label {
+  width: 100%;
+  max-width: 365px;
+  box-sizing: border-box;
+  margin: 0 10px 0 10px;
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+@media screen and (min-width: 768px) {
+  .ProfileEdits {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .label {
+    margin: 0 auto;
+    max-width: 700px;
+  }
+}
+
+.horizonalline {
+  color: rgb(163, 158, 158);
+  font-size: 1.5rem;
+  margin: 15px;
+}
+
+.BioSection {
+  min-height: 100px;
+}
+
+.Contact {
+  height: 60px;
+  border-radius: 15px;
+  margin: 15px 15px 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 18px;
+}
+
+#contacticon {
+  font-size: 1.7rem;
+}
+
+.Box {
+  border: 0.1px solid white;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.contacticon-bg {
+width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;   
+  justify-content: center;  
+  /* 🧹 Clean up: Wipes out the old padding completely */
+  padding: 0; 
+  box-sizing: border-box;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              filter 0.25s ease;
+  box-shadow: 0 0 0 transparent;
+}
+
+.Contact:hover .contacticon-bg,
+.Icon-bank:hover .contacticon-bg {
+  transform: translateY(-2px); /* Gentle micro-lift */
+  filter: brightness(1.04);     /* Tiny illumination lift */
+  
+  /* AI */
+  /* 🌌 Mathematical Soft Blur Layering:
+     0px horizontal/vertical offset, a wide 20px blur spread, 
+     running on your custom background color profile variable */
+  box-shadow: 0 4px 20px 2px var(--glow-color);
+}
+
+.label2 {
+  max-width: 250px;
+  height: 50px;
+  background-color: rgba(70, 65, 65, 0.04) !important;
+  color: white !important;
+}
+
+@media screen and (min-width: 768px) {
+  .label2 {
+    max-width: 500px;
+  }
+
+  .nlink-section {
+    max-width: 500px;
+  }
+}
+
+#delete-icon {
+  color: rgba(239, 68, 68, 1);
+  font-size: 2.2rem;
+}
+
+
+/* for */
+
+.IconSize{
+  font-size: 1.6rem !important;
+  font-weight: 900 !important;
+  
+}
+
+
+
+.label2::placeholder {
+  color: rgb(80, 80, 101) !important;
+}
+
+.nlink-section {
+  width: 380px;
+  height: 40px;
+  border: 1px solid white;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+  /* margin-top: 15px; */
+}
+
+#addlink {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  
+}
+
+.Icon-bank-drawer{
+  min-height: 100px;
+  background-color: #273338;
+  width: 90%;
+  text-align: center;
+  padding: 10px;
+  margin-top:10px;
+  border-radius: 15px;
+  border: .5px solid white;
+  transition: opacity 0.4s ease, display 0.4s ease allow-discrete;
+}
+
+.Icon-bank{
+background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-bank-grid{
+display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 10px;
+  
+}
+
+.icon-bank-title{
+  color: white;
+  margin-bottom: 12px;
+
+}
+
+@keyframes drawerPopOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* Ensure the grid wraps and distributes evenly */
+  .icon-bank-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+    gap: 4%; 
+    padding: 10px 0;
+  }
+
+  /* Force each item to take up exactly 1/3 of the row minus gaps */
+  .Icon-bank {
+    flex: 0 0 30%; 
+    max-width: 30%;
+    margin-bottom: 15px; /* Adds space before wrapping down to the next line */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
+/* for color of an icon in link  */
+/*  Phone */
+.Green {
+  background-color: #E7E1B1;
+  color: #0D530E; 
+  --glow-color: rgba(13, 83, 14, 0.25); /* Soft deep green mist */
+}
+
+/* Email */
+.Blue {
+  color: #111844;
+  background-color: #EAE0CF;
+  --glow-color: rgba(17, 24, 68, 0.2);
+}
+
+/* LinkedIn */
+.Navy {
+  color: #121358;
+  background-color: #C4E2F5;
+  --glow-color: rgba(18, 19, 88, 0.25);
+}
+
+/* work porfolio  */
+.Red {
+  color: #810B38;
+  background-color: #DCC3AA;
+  --glow-color: rgba(129, 11, 56, 0.25);
+}
+
+
+/* Instagram */
+.Gradient-Red{
+  color: white;
+  --glow-color: rgba(188, 24, 136, 0.25);
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+/* YouTube */
+.DarkRed {
+  color: white;
+  background-color: Red;
+  --glow-color: rgba(255, 0, 0, 0.2);
+}
+
+/* Facebook */
+.RoyalBlue {
+  color: #1877f2;
+  background-color: #D9F9DF;
+  --glow-color: rgba(24, 119, 242, 0.25);
+}
+
+/* TikTok */
+.Black {
+  background-color: #000;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  --glow-color: rgba(255, 255, 255, 0.15); /* Soft silver outline halo */
+}
+
+/* X (Twitter) */
+.MatteBlack {
+  color: #15202b; 
+  background-color: #DDDDDD;
+  --glow-color: rgba(21, 32, 43, 0.2);
+}
+
+/* website */
+.Dirt {
+  color: #41431B;
+  background-color: #AEB784;
+  --glow-color: rgba(65, 67, 27, 0.25);
+}
+
+.GuideText {
+  width: 350px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.Padding {
+  margin: 0 !important;
+}
+
+.Save-contact-section {
+  height: 40px;
+  background-color: rgba(37, 29, 61, 0.342);
+  margin: 40px 15px 15px 15px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#Savecontact-icon {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-right: 7px;
+}
+
+#TxtSave {
+  padding-top: 15px;
+  color: #ffffff;
+}
+
+/* for  image pop up  */
+.AvatarPopUp {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 330px;
+  height: 400px;
+  background-color: rgb(39, 51, 56);
+  z-index: 1000;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.Cross {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 10px;
+}
+
+.CrossBar {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.Align {
+  position: relative;
+  left: 13px;
+}
+
+.CrossTextSection {
+  background-color: rgba(165, 207, 131, 0.08);
+  min-height: 60px;
+  border-radius: 15px;
+  width: 90%;
+  font-size: 1.2rem;
+  padding-top: 15px;
+  color: #fff;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.CrossText {
+  width: 60%;
+  text-align: left;
+}
+
+/* for component StatEdits  */
+.Stat-Edits {
+  width: 93%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.08); /* Clean modern transparency */
+  border-radius: 20px;
+  margin-left: 15px;
+  overflow: hidden; /* Keeps child elements from breaking border radiuses */
+  
+  /* Smooth Entry Effects */
+  animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top center;
+}
+
+.Stat-Detail {
+  min-height: 430px; /* Using min-height prevents rigid content squishing */
+  width: 93%;
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+
+.Stat-Section {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Softer borders look cleaner */
+  border-bottom: none; /* Prevents double border overlapping between stacked rows */
+  padding: 12px 8px;
+  transition: background-color 0.2s ease;
+}
+
+
+.Stat-Section:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+#Stat-Top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+#Stat-Bottom {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Restores bottom border */
+}
+
+.Stat-Label-Value {
+  width: 70%;
+}
+
+.Stat-Label, .Stat-Value {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.Stat-Label {
+  justify-content: space-evenly;
+  margin: 5px 5px 0 0;
+}
+
+.Stat-Value {
+  margin: 10px 5px 10px 0;
+}
+
+/* Improved styling for Bootstrap input text fields */
+.label3 {
+  margin-left: 10px;
+  background-color: #f7f1de !important;
+  font-size: 1.1rem !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.label3:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.Stat-Icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.Stat-Section:hover .Stat-Icon {
+  transform: scale(1.05); 
+}
+
+/*  Preview Panel Layout */
+#Pre-Text {
+  color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.Preview-Container {
+  display: flex;
+  width: 100%;
+  height: 65px;
+}
+
+.Pre-Box {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(15, 14, 14, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.Pre-Box:hover {
+  background-color: rgba(15, 14, 14, 0.6);
+}
+
+#box-1 { border-radius: 15px 0 0 15px; border-right: none; }
+#box-2 { border-right: none; }
+#box-3 { border-radius: 0 15px 15px 0; }
+
+.Pre-Top-text {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.Pre-Bottom-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  margin: 2px 0 0 0;
+  letter-spacing: 0.5px;
+}
+
+/* Animation Keyframes (Smooth Scale-Fade Reveal) */
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+
