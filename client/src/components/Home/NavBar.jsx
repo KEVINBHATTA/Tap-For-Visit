@@ -48,9 +48,9 @@ function NavBar() {
         <p onClick={() => setIsOpen(false)}>How it works</p>
         {/* <hr className="Mobile-Divider" />  */}
         <div className="Mobile-Auth">
-          <p onClick={() => setIsOpen(false)}>Sign In</p>
+        <Link to="/signin" className="nav-link"> <p onClick={() => setIsOpen(false)}>Sign In</p></Link>
       <span className="mx-2">/</span>
-          <p onClick={() => setIsOpen(false)}>Sign Up</p>
+       <Link to="/signin" className="nav-link"><p onClick={() => setIsOpen(false)}>Sign Up</p></Link>   
         </div>
         <div className="DashBoard Mobile-DashBoard" onClick={() => setIsOpen(false)}>
           DashBoard
