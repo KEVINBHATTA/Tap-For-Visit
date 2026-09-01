@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi"; 
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,9 +26,9 @@ function NavBar() {
 
       {/* Desktop Auth & Dashboard CTA */}
       <div className="Flex w-70 Auth-Section Desktop-Only">
-        <p className="mt-2">Sign In</p>
+      <Link to="/signin" className="nav-link"><p className="mt-2">Sign In</p></Link>
         <p className="mt-2">/</p>
-        <p className="mt-2">Sign Up</p>
+       <Link to="/signin" className="nav-link"><p className="mt-2">Sign Up</p></Link>
         <div className="DashBoard mt-1">DashBoard</div>
       </div>
 

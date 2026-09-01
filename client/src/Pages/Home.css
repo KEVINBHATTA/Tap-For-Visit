@@ -166,9 +166,6 @@
   gap: 40px;
 }
 
-/* =========================================
-   Left Section (Content & CTAs)
-   ========================================= */
 .Section1 {
   flex: 1;
   max-width: 580px;
@@ -177,7 +174,6 @@
   justify-content: center;
 }
 
-/* Micro-badge tag */
 .Badge {
   display: inline-flex;
   align-items: center;
@@ -197,7 +193,7 @@
 .BadgeDot {
   width: 8px;
   height: 8px;
-  background-color: #10b981; /* Glowing Green Dot */
+  background-color: #10b981; 
   border-radius: 50%;
   box-shadow: 0 0 8px #10b981;
 }
@@ -212,7 +208,7 @@
 }
 
 .HighlightText {
-  color: #6d28d9; /* Rich purple accent */
+  color: #6d28d9; 
 }
 
 .HeroDescription {

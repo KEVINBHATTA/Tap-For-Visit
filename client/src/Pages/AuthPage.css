@@ -1,0 +1,258 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F3F1E9;
+  padding: 24px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #F3F1E9;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  height: 80px;
+}
+.auth-logo-pic {
+  width: 80px;
+  height: 80px;
+}
+
+.auth-logo-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  /* background: #111111; */
+  display: inline-block;
+}
+
+.auth-logo-text {
+  color: #111111;
+}
+
+.auth-logo-accent {
+  color: #5B4FE0;
+  padding-left: 5px;
+}
+
+.auth-alert {
+  background: #EDEAFB;
+  border: 0.5px solid #D6D0F5;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: #3C3489;
+  line-height: 1.5;
+}
+
+.auth-alert i {
+  font-size: 14px;
+  vertical-align: -2px;
+  margin-right: 6px;
+}
+
+.auth-alert-strong {
+  font-weight: 500;
+}
+
+.auth-toggle {
+  display: flex;
+  background: #E7E4DA;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 22px;
+}
+
+.auth-toggle-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #5f5e5a;
+  padding: 9px 0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-toggle-btn.active {
+  background: #111111;
+  color: #ffffff;
+}
+
+.auth-field {
+  margin-bottom: 12px;
+}
+
+.auth-field label {
+  font-size: 12px;
+  color: #5f5e5a;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.auth-field input[type="text"],
+.auth-field input[type="email"],
+.auth-field input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 0.5px solid #D8D5C9;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #111111;
+}
+
+.auth-field input:focus {
+  outline: none;
+  border-color: #5B4FE0;
+  box-shadow: 0 0 0 2px rgba(91, 79, 224, 0.15);
+}
+
+.auth-input-wrap {
+  position: relative;
+}
+
+.auth-input-wrap input {
+  padding-right: 34px !important;
+}
+
+.auth-icon-ok,
+.auth-icon-bad,
+.auth-icon-toggle {
+  position: absolute;
+  right: 10px;
+  top: 11px;
+  font-size: 15px;
+}
+
+.auth-icon-ok {
+  color: #639922;
+}
+
+.auth-icon-bad {
+  color: #E24B4A;
+}
+
+.auth-icon-toggle {
+  color: #888780;
+  cursor: pointer;
+}
+
+.auth-hint {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.auth-hint-ok {
+  color: #639922;
+}
+
+.auth-hint-bad {
+  color: #E24B4A;
+}
+
+.auth-forgot-row {
+  text-align: right;
+  margin-bottom: 16px;
+}
+
+.auth-policy-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.auth-policy-row input[type="checkbox"] {
+  margin-top: 3px;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.auth-policy-row span {
+  font-size: 12px;
+  color: #5f5e5a;
+  line-height: 1.5;
+}
+
+.auth-link {
+  color: #5B4FE0;
+  cursor: pointer;
+}
+
+.auth-submit {
+  width: 100%;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 0;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: opacity 0.15s ease;
+}
+
+.auth-submit:hover {
+  opacity: 0.9;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.auth-divider span:not(.auth-divider-text) {
+  flex: 1;
+  height: 0.5px;
+  background: #D8D5C9;
+}
+
+.auth-divider-text {
+  font-size: 11px;
+  color: #888780;
+}
+
+.auth-google-btn {
+  width: 100%;
+  background: #ffffff;
+  border: 0.5px solid #D8D5C9;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #111111;
+  transition: background 0.15s ease;
+}
+
+.auth-google-btn:hover {
+  background: #F7F5EE;
+}
