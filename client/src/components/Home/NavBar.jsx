@@ -1,62 +1,86 @@
-import React, { useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi"; 
+import { useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import styles from "./NavBar.module.css";
+
+const NAV_LINKS = [
+  { label: "Card designs", to: "/card-designs" },
+  { label: "Profile templates", to: "/templates" },
+  { label: "How it works", to: "/howitsworks" },
+];
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="NavBar">
-      {/* Brand Logo & Title */}
-      <div className="Flex Nav-Brand">
-        <img className="Logo" src="/Logo.png" alt="Tap for Visit Logo" />
-        <h3 className="Flex mt-3 Nav-Title">
-          <span className="text-primary mr-2">TAP</span> FOR VISIT
-        </h3>
-      </div>
+    <header className={styles.navbar}>
+      <div className={styles.inner}>
+        {/* Brand */}
+        <Link to="/" className={styles.brand} onClick={closeMenu}>
+          <img className={styles.logo} src="/Logo.png" alt="" />
+          <span className={styles.brandText}>
+            <span className={styles.brandAccent}>Tap</span> For Visit
+          </span>
+        </Link>
 
-      {/*  Navigation Links */}
-      <div className="Flex w-99 Nav-Links Desktop-Only">
-        <p className="mt-2">Card designs</p>
-        <p className="mt-2">Profile templates</p>
-        <p className="mt-2">How it works</p>
-      </div>
+        {/* Desktop links */}
+        <nav className={styles.links}>
+          {NAV_LINKS.map((link) => (
+            <Link key={link.to} to={link.to} className={styles.link}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
 
-      {/* Desktop Auth & Dashboard CTA */}
-      <div className="Flex w-70 Auth-Section Desktop-Only">
-      <Link to="/signin" className="nav-link"><p className="mt-2">Sign In</p></Link>
-        <p className="mt-2">/</p>
-       <Link to="/signin" className="nav-link"><p className="mt-2">Sign Up</p></Link>
-        <div className="DashBoard mt-1">DashBoard</div>
-      </div>
-
-      {/* Hamburger Button */}
-      <button 
-        className="Hamburger-Btn Mobile-Only" 
-        onClick={toggleMenu} 
-        aria-label="Toggle navigation menu"
-      >
-        {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}
-      </button>
-
-      {/* Menu Drawer */}
-      <div className={`Mobile-Menu ${isOpen ? "open" : ""}`}>
-        <p onClick={() => setIsOpen(false)}>Card designs</p>
-        <p onClick={() => setIsOpen(false)}>Profile templates</p>
-        <p onClick={() => setIsOpen(false)}>How it works</p>
-        {/* <hr className="Mobile-Divider" />  */}
-        <div className="Mobile-Auth">
-        <Link to="/signin" className="nav-link"> <p onClick={() => setIsOpen(false)}>Sign In</p></Link>
-      <span className="mx-2">/</span>
-       <Link to="/signin" className="nav-link"><p onClick={() => setIsOpen(false)}>Sign Up</p></Link>   
+        {/* Desktop auth + dashboard */}
+        <div className={styles.actions}>
+          <Link to="/signin" className={styles.authLink}>
+            Sign in
+          </Link>
+          <span className={styles.divider}>/</span>
+          <Link to="/signup" className={styles.authLink}>
+            Sign up
+          </Link>
+          <Link to="/dashboard" className={styles.dashboardBtn}>
+            Dashboard
+          </Link>
         </div>
-        <div className="DashBoard Mobile-DashBoard" onClick={() => setIsOpen(false)}>
-          DashBoard
-        </div>
+
+        {/* Hamburger */}
+        <button
+          className={styles.hamburger}
+          onClick={() => setIsOpen((v) => !v)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
       </div>
-    </nav>
+
+      {/* Mobile menu */}
+      <div className={`${styles.mobileMenu} ${isOpen ? styles.mobileMenuOpen : ""}`}>
+        {NAV_LINKS.map((link) => (
+          <Link key={link.to} to={link.to} onClick={closeMenu} className={styles.mobileLink}>
+            {link.label}
+          </Link>
+        ))}
+
+        <div className={styles.mobileAuthRow}>
+          <Link to="/signin" onClick={closeMenu} className={styles.authLink}>
+            Sign in
+          </Link>
+          <span className={styles.divider}>/</span>
+          <Link to="/signup" onClick={closeMenu} className={styles.authLink}>
+            Sign up
+          </Link>
+        </div>
+
+        <Link to="/dashboard" onClick={closeMenu} className={styles.mobileDashboardBtn}>
+          Dashboard
+        </Link>
+      </div>
+    </header>
   );
 }
 

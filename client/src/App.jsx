@@ -6,6 +6,7 @@ import Home from "./Pages/Home.jsx";
 import {useState} from "react";
 import YourProfile from "./Pages/YourProfile.jsx";
 import AuthPage from "./Pages/AuthPage.jsx";
+import HowItWorks from "./Pages/HowItsWork.jsx";
 
 function App() {
   const [globalProfileData, setGlobalProfileData] = useState(() => {
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/signin" element={<AuthPage/>} />
+        <Route path="/howitsworks" element={<HowItWorks/>}/>
         <Route path="/Template1" element={<Profile />} />
         <Route path="/ProfileEdits" element={<ProfileEdits />} />
         <Route path="/Template2" element={<Template2 />} />

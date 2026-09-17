@@ -766,9 +766,8 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* =========================================
-   📱 Mobile Responsiveness
-   ========================================= */
+/* Mobile Responsiveness*/
+  
 @media (max-width: 900px) {
   .ProfileContainer {
     flex-direction: column-reverse; /* Shows description first or phone first */
@@ -886,9 +885,7 @@
   transform: translateY(-6px);
 }
 
-/* =========================================
-   1. STANDARD CARD
-   ========================================= */
+/* 1. STANDARD CARD */
 .StandardCard {
   background: #f7f4eb;
   border: 1px solid rgba(0, 0, 0, 0.08);
