@@ -11,32 +11,6 @@ function HowItWorksNav() {
   return (
     <header className="how-nav">
       <NavBar />
-      {/* <div className="how-nav-inner">
-        <Link to="/" className="how-nav-logo">
-          Tap For Visit
-        </Link>
-
-        <nav className={`how-nav-links ${open ? "how-nav-links-open" : ""}`}>
-          <Link to="/nfc-cards" onClick={() => setOpen(false)}>NFC card design</Link>
-          <Link to="/templates" onClick={() => setOpen(false)}>Profile templates</Link>
-          <Link to="/how-it-works" className="how-nav-active" onClick={() => setOpen(false)}>
-            How it works
-          </Link>
-          <Link to="/signin" onClick={() => setOpen(false)}>Sign in</Link>
-          <Link to="/signup" className="how-nav-cta" onClick={() => setOpen(false)}>
-            Sign up
-          </Link>
-        </nav>
-
-        <button
-          className="how-nav-toggle"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className={open ? "how-nav-x" : ""} />
-        </button>
-      </div> */}
     </header>
   );
 }
