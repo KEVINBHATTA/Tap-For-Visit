@@ -42,7 +42,12 @@ app.use("/api/profile", profileRouter);
 
 // Health Check Endpoint
 app.get("/api/health", (req, res) => {
-  res.status(200).json({ status: "OK", timestamp: new Date() });
+  const databaseConnected = mongoose.connection.readyState === 1;
+  res.status(databaseConnected ? 200 : 503).json({
+    status: databaseConnected ? "OK" : "NOT_READY",
+    database: databaseConnected ? "connected" : "disconnected",
+    timestamp: new Date(),
+  });
 });
 
 // Global Error Handler
@@ -51,21 +56,20 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: err.message || "Server error" });
 });
 
-// ALWAYS START EXPRESS LISTEN FIRST (Keeps port 5000 active)
-app.listen(PORT, () => {
-  console.log(`🚀 Server is actively running at: http://localhost:${PORT}`);
-});
+const startServer = async () => {
+  if (!DB_URL) {
+    throw new Error("MongoDB connection URL is missing (set MONGODB_URL or MONGO_URI)");
+  }
 
-// CONNECT TO MONGO DB ASYNCHRONOUSLY
-if (!DB_URL) {
-  console.error("❌ MongoDB connection error: DB_URL / MONGO_URI is missing in .env!");
-} else {
-  mongoose
-    .connect(DB_URL)
-    .then(() => {
-      console.log("✅ Connected to MongoDB successfully");
-    })
-    .catch((err) => {
-      console.error("❌ MongoDB connection issue:", err.message);
-    });
-}
+  await mongoose.connect(DB_URL);
+  console.log("✅ Connected to MongoDB successfully");
+
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is actively running on port ${PORT}`);
+  });
+};
+
+startServer().catch((error) => {
+  console.error("❌ Server startup failed:", error.message);
+  process.exitCode = 1;
+});
