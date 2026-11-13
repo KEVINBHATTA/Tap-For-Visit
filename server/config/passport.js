@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
 import User from "../models/User.js";
+import { sendWelcomeEmail } from "../utils/email.js";
 
 dotenv.config();
 
@@ -61,6 +62,16 @@ passport.use(
           email: email,
           googleId: profile.id,
         });
+
+        try {
+          await sendWelcomeEmail({
+            email: user.email,
+            name: user.name,
+            username: user.username,
+          });
+        } catch (error) {
+          console.error("Welcome email delivery failed after Google registration:", error.message);
+        }
 
         return done(null, user);
       } catch (error) {

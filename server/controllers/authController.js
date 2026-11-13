@@ -1,6 +1,7 @@
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { sendWelcomeEmail } from "../utils/email.js";
 
 // Utility: Generate JWT Token
 const generateToken = (id) => {
@@ -77,9 +78,21 @@ export const register = async (req, res) => {
     });
 
     const token = generateToken(user._id);
+    let welcomeEmailSent = true;
+    try {
+      await sendWelcomeEmail({
+        email: user.email,
+        name: user.name,
+        username: user.username,
+      });
+    } catch (error) {
+      welcomeEmailSent = false;
+      console.error("Welcome email delivery failed after registration:", error.message);
+    }
 
     return res.status(201).json({
       message: "Account created successfully",
+      welcomeEmailSent,
       token,
       user: {
         id: user._id,
