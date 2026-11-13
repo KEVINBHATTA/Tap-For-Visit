@@ -13,7 +13,7 @@ export default function AuthPage({ initialMode = "signin" }) {
   const [password, setPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [usernameStatus, setUsernameStatus] = useState(null); // null | "checking" | "available" | "taken" | "reserved" | "invalid"
+  const [usernameStatus, setUsernameStatus] = useState(null); // null | "checking" | "available" | "taken" | "reserved" | "invalid" | "error"
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -65,7 +65,7 @@ export default function AuthPage({ initialMode = "signin" }) {
         const res = await api.get(`/auth/check-username/${username.toLowerCase()}`);
         setUsernameStatus(res.data.available ? "available" : "taken");
       } catch {
-        setUsernameStatus(null);
+        setUsernameStatus("error");
       }
     }, 400);
 
@@ -79,6 +79,10 @@ export default function AuthPage({ initialMode = "signin" }) {
     if (isSignup) {
       if (usernameStatus === "reserved") {
         setError("This username is reserved");
+        return;
+      }
+      if (usernameStatus === "error") {
+        setError("Could not check username availability. Please try again.");
         return;
       }
       if (usernameStatus !== "available") {
@@ -198,6 +202,11 @@ export default function AuthPage({ initialMode = "signin" }) {
               )}
               {usernameStatus === "taken" && (
                 <span className="auth-hint auth-hint-bad">already taken, try another</span>
+              )}
+              {usernameStatus === "error" && (
+                <span className="auth-hint auth-hint-bad">
+                  Could not check username availability. Check your connection and try again.
+                </span>
               )}
             </div>
           )}
