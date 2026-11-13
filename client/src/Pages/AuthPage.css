@@ -256,3 +256,11 @@
 .auth-google-btn:hover {
   background: #F7F5EE;
 }
+
+.auth-icon-checking {
+  color: rgba(255, 255, 255, 0.4);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

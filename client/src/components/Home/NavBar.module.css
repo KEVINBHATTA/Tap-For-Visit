@@ -99,6 +99,58 @@
   color: var(--nb-accent);
 }
 
+.userMenu {
+  position: relative;
+}
+
+.userGreeting {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--nb-ink);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.userGreeting:hover {
+  color: var(--nb-accent);
+}
+
+.userMenuDropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 120px;
+  padding-top: 8px;
+  z-index: 31;
+}
+
+.userMenu:hover .userMenuDropdown,
+.userMenu:focus-within .userMenuDropdown {
+  display: block;
+}
+
+.logoutBtn {
+  width: 100%;
+  border: 1px solid var(--nb-line);
+  border-radius: 8px;
+  padding: 9px 14px;
+  background: var(--nb-bg);
+  color: var(--nb-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  color: var(--nb-accent);
+}
+
 .divider {
   color: var(--nb-muted);
   font-size: 14px;
@@ -183,6 +235,13 @@
   gap: 10px;
   padding: 16px 20px;
   border-bottom: 1px solid var(--nb-line);
+}
+
+.mobileAuthRow .logoutBtn {
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .mobileDashboardBtn {

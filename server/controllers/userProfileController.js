@@ -1,10 +1,23 @@
-const UserProfile = require("../models/UserProfile");
+import UserProfile from "../models/UserProfile.js";
 
-exports.updateUserProfile = async (req, res, next) => {
+/**
+ * @desc    Update or create a user profile
+ * @route   PUT /api/profile/:username
+ * @access  Private (Requires protect middleware)
+ */
+export const updateUserProfile = async (req, res, next) => {
   try {
     const { username } = req.params;
+    const cleanUsername = username.trim().toLowerCase();
 
-    // Destructure incoming flat properties from the React client payload
+    // 1. Authorization Guard: Ensure the authenticated user owns this profile
+    if (req.user.username.toLowerCase() !== cleanUsername) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized: You can only update your own profile",
+      });
+    }
+
     const {
       url,
       template,
@@ -34,82 +47,87 @@ exports.updateUserProfile = async (req, res, next) => {
       statValue3,
     } = req.body;
 
-    // Map structural fields and fall back to clean placeholders if mandatory fields are missing
+    // 2. Build structured payload without destructive overwrites
     const updateFields = {
-      userName: username.trim().toLowerCase(), // Matches schema lowercase constraint
-      url: url || "",
+      userName: cleanUsername,
+      user: req.user._id, // Link to User model _id reference
+      url: url ?? "",
       template: template || "default",
-      fullName: fullName || "New User",
-      job: job || "",
-      company: company || "",
-      location: location || "",
-      bio: bio || "No bio added yet.",
-      quote: quote || "",
-      profileImage: profileImage || "",
-      phone: phone || "000-000-0000",
-      email: email || "",
+      fullName: fullName || req.user.name || "New User",
+      job: job ?? "",
+      company: company ?? "",
+      location: location ?? "",
+      bio: bio ?? "",
+      quote: quote ?? "",
+      profileImage: profileImage ?? "",
+      phone: phone ?? "",
+      email: email || req.user.email,
       showLocation: typeof showLocation === "boolean" ? showLocation : true,
       showStat: typeof showStat === "boolean" ? showStat : false,
       socials: {
-        linkedin: linkedin || "",
-        instagram: instagram || "",
-        youtube: youtube || "",
-        facebook: facebook || "",
-        tiktok: tiktok || "",
-        x: x || "",
-        website: website || "",
+        linkedin: linkedin ?? "",
+        instagram: instagram ?? "",
+        youtube: youtube ?? "",
+        facebook: facebook ?? "",
+        tiktok: tiktok ?? "",
+        x: x ?? "",
+        website: website ?? "",
       },
       stats: [
-        { label: statLabel1 || "", value: statValue1 || "" },
-        { label: statLabel2 || "", value: statValue2 || "" },
-        { label: statLabel3 || "", value: statValue3 || "" },
+        { label: statLabel1 ?? "", value: statValue1 ?? "" },
+        { label: statLabel2 ?? "", value: statValue2 ?? "" },
+        { label: statLabel3 ?? "", value: statValue3 ?? "" },
       ],
     };
 
-    // Perform database operations safely with explicit fallback configurations
+    // 3. Upsert into MongoDB
     const updatedProfile = await UserProfile.findOneAndUpdate(
-      { userName: username.toLowerCase() },
+      { userName: cleanUsername },
       { $set: updateFields },
       {
-        returnDocument: "after",
+        new: true,
         runValidators: true,
-        upsert: true, // Creates the record with placeholder fields if it doesn't exist
-      },
+        upsert: true,
+      }
     );
 
     return res.status(200).json({
       success: true,
-      message: "Profile saved and updated successfully!",
+      message: "Profile saved successfully",
       data: updatedProfile,
     });
   } catch (error) {
-    console.error(" Mongoose Database Write Error:", error.message);
+    console.error("Mongoose Profile Write Error:", error.message);
     return res.status(400).json({
       success: false,
-      message: "Database operation failed",
+      message: "Failed to update profile",
       error: error.message,
     });
   }
 };
 
-
-exports.getUserProfile = async (req, res, next) => {
+/**
+ * @desc    Get user profile by username
+ * @route   GET /api/profile/:username
+ * @access  Public
+ */
+export const getUserProfile = async (req, res, next) => {
   try {
     const { username } = req.params;
+    const cleanUsername = username.trim().toLowerCase();
 
-    // Search the database matching your schema property name (userName)
-    const profile = await UserProfile.findOne({ userName: username.toLowerCase() });
+    const profile = await UserProfile.findOne({ userName: cleanUsername });
 
     if (!profile) {
-      return res.status(404).json({ 
-        success: false, 
-        message: "Profile not found" 
+      return res.status(404).json({
+        success: false,
+        message: "Profile not found",
       });
     }
 
     return res.status(200).json({
       success: true,
-      data: profile
+      data: profile,
     });
   } catch (error) {
     next(error);

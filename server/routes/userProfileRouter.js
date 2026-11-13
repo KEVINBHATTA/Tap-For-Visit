@@ -1,10 +1,24 @@
-const express = require("express");
+import express from "express";
+import {
+  updateUserProfile,
+  getUserProfile,
+} from "../controllers/userProfileController.js";
+import { protect } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
-const userProfileController = require("../controllers/userProfileController");
 
+/**
+ * @route   GET /api/profile/:username
+ * @desc    Get user profile card by username
+ * @access  Public
+ */
+router.get("/:username", getUserProfile);
 
-router.put("/update/:username", userProfileController.updateUserProfile);
-router.get("/:username", userProfileController.getUserProfile );
+/**
+ * @route   PUT /api/profile/:username
+ * @desc    Create or update user profile card
+ * @access  Private (Requires valid JWT token)
+ */
+router.put("/:username", protect, updateUserProfile);
 
-
-module.exports = router;
+export default router;

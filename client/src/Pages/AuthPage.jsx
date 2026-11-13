@@ -1,41 +1,115 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // 👈 Added useLocation
+import { useAuth } from "../context/AuthContext";
+import api from "../utils/api";
 import "./AuthPage.css";
 
 const RESERVED_USERNAMES = ["admin", "api", "dashboard", "support", "login", "signup", "signin"];
 
 export default function AuthPage({ initialMode = "signin" }) {
-  const [mode, setMode] = useState(initialMode);// "signin" | "signup"
+  const [mode, setMode] = useState(initialMode); // "signin" | "signup"
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [usernameStatus, setUsernameStatus] = useState(null); // null | "checking" | "available" | "taken" | "reserved" | "invalid"
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { login, register } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation(); // 👈 Added location hook
 
   const isSignup = mode === "signup";
+  const authError = new URLSearchParams(location.search).get("error");
+  const displayedError =
+    error ||
+    (authError?.startsWith("google")
+      ? "Google sign-in failed. Please try again or use email and password."
+      : "");
 
-  // Placeholder availability state — replace with a debounced API call to
-  // GET /api/users/check-username?username=... in a later pass.
-  const usernameStatus =
-    username.length === 0
-      ? null
-      : RESERVED_USERNAMES.includes(username.toLowerCase())
-      ? "taken"
-      : "available";
+  // Reset errors when mode changes
+  const handleModeSwitch = (newMode) => {
+    setMode(newMode);
+    setError("");
+    setUsernameStatus(null);
+  };
 
-  const handleSubmit = (e) => {
+  // Sanitize username (alphanumeric & underscores only)
+  const handleUsernameChange = (e) => {
+    const sanitized = e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "");
+    setUsername(sanitized);
+  };
+
+  // Debounced live username availability check
+  useEffect(() => {
+    if (!isSignup || !username) {
+      setUsernameStatus(null);
+      return;
+    }
+
+    if (username.length < 3) {
+      setUsernameStatus("invalid");
+      return;
+    }
+
+    if (RESERVED_USERNAMES.includes(username.toLowerCase())) {
+      setUsernameStatus("reserved");
+      return;
+    }
+
+    setUsernameStatus("checking");
+    const timeout = setTimeout(async () => {
+      try {
+        const res = await api.get(`/auth/check-username/${username.toLowerCase()}`);
+        setUsernameStatus(res.data.available ? "available" : "taken");
+      } catch {
+        setUsernameStatus(null);
+      }
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [username, isSignup]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (isSignup) {
-      // TODO: wire to POST /api/auth/signup { username, email, password }
-      console.log("signup", { username, email, password, agreed });
-    } else {
-      // TODO: wire to POST /api/auth/signin { email, password }
-      console.log("signin", { email, password });
+      if (usernameStatus === "reserved") {
+        setError("This username is reserved");
+        return;
+      }
+      if (usernameStatus !== "available") {
+        setError("Please choose a valid & available username");
+        return;
+      }
+      if (!agreed) {
+        setError("You must agree to the Terms of Service & Privacy Policy");
+        return;
+      }
+    }
+
+    setLoading(true);
+    try {
+      if (isSignup) {
+        await register(username, username, email, password);
+      } else {
+        await login(email, password);
+      }
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Handle Google OAuth Redirect with port fallback
   const handleGoogleAuth = () => {
-    // TODO: redirect to /api/auth/google
-    console.log("google auth clicked");
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    window.location.href = `${apiUrl}/api/auth/google`;
   };
 
   return (
@@ -43,7 +117,7 @@ export default function AuthPage({ initialMode = "signin" }) {
       <div className="auth-card">
         <div className="auth-logo">
           <span className="auth-logo-pic">
-             <img src="Logo.png"></img>
+            <img src="/Logo.png" alt="Tap For Visit Logo" />
           </span>
           <span className="auth-logo-text">
             TAP<span className="auth-logo-accent">FOR VISIT</span>
@@ -53,10 +127,17 @@ export default function AuthPage({ initialMode = "signin" }) {
         {isSignup && (
           <div className="auth-alert">
             <i className="ti ti-info-circle" aria-hidden="true" />
-            once you set your username it cannot be changed. profile url:{" "}
+            Once set, your username cannot be changed. Profile URL:{" "}
             <span className="auth-alert-strong">
               tapforvisit.com/{username || "username"}
             </span>
+          </div>
+        )}
+
+        {/* Dynamic Error Rendering */}
+        {displayedError && (
+          <div className="auth-error-box">
+            <i className="ti ti-alert-circle" aria-hidden="true" /> {displayedError}
           </div>
         )}
 
@@ -66,7 +147,7 @@ export default function AuthPage({ initialMode = "signin" }) {
             role="tab"
             aria-selected={mode === "signin"}
             className={`auth-toggle-btn ${mode === "signin" ? "active" : ""}`}
-            onClick={() => setMode("signin")}
+            onClick={() => handleModeSwitch("signin")}
           >
             sign in
           </button>
@@ -75,7 +156,7 @@ export default function AuthPage({ initialMode = "signin" }) {
             role="tab"
             aria-selected={mode === "signup"}
             className={`auth-toggle-btn ${mode === "signup" ? "active" : ""}`}
-            onClick={() => setMode("signup")}
+            onClick={() => handleModeSwitch("signup")}
           >
             sign up
           </button>
@@ -91,17 +172,27 @@ export default function AuthPage({ initialMode = "signin" }) {
                   type="text"
                   placeholder="kevinbhatta"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value.trim())}
+                  onChange={handleUsernameChange}
                   autoComplete="off"
                   required
                 />
+                {usernameStatus === "checking" && (
+                  <i className="ti ti-loader-2 auth-icon-checking spin" aria-hidden="true" />
+                )}
                 {usernameStatus === "available" && (
                   <i className="ti ti-check auth-icon-ok" aria-hidden="true" />
                 )}
-                {usernameStatus === "taken" && (
+                {(usernameStatus === "taken" || usernameStatus === "reserved") && (
                   <i className="ti ti-x auth-icon-bad" aria-hidden="true" />
                 )}
               </div>
+              
+              {usernameStatus === "invalid" && (
+                <span className="auth-hint auth-hint-bad">Must be at least 3 characters</span>
+              )}
+              {usernameStatus === "reserved" && (
+                <span className="auth-hint auth-hint-bad">Username is reserved</span>
+              )}
               {usernameStatus === "available" && (
                 <span className="auth-hint auth-hint-ok">available</span>
               )}
@@ -165,8 +256,8 @@ export default function AuthPage({ initialMode = "signin" }) {
             </label>
           )}
 
-          <button type="submit" className="auth-submit">
-            {isSignup ? "create account" : "sign in"}
+          <button type="submit" className="auth-submit" disabled={loading}>
+            {loading ? "Please wait..." : isSignup ? "create account" : "sign in"}
           </button>
         </form>
 

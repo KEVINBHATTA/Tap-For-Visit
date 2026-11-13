@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./NavBar.module.css";
 
 const NAV_LINKS = [
@@ -12,6 +13,12 @@ const NAV_LINKS = [
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
+  const { user, loading, logout } = useAuth();
+  const greetingName = user?.username || user?.name;
+  const handleLogout = () => {
+    logout();
+    closeMenu();
+  };
 
   return (
     <header className={styles.navbar}>
@@ -35,13 +42,28 @@ function NavBar() {
 
         {/* Desktop auth + dashboard */}
         <div className={styles.actions}>
-          <Link to="/signin" className={styles.authLink}>
-            Sign in
-          </Link>
-          <span className={styles.divider}>/</span>
-          <Link to="/signup" className={styles.authLink}>
-            Sign up
-          </Link>
+          {user ? (
+            <div className={styles.userMenu}>
+              <button type="button" className={styles.userGreeting}>
+                Hi {greetingName}
+              </button>
+              <div className={styles.userMenuDropdown}>
+                <button type="button" className={styles.logoutBtn} onClick={handleLogout}>
+                  Log out
+                </button>
+              </div>
+            </div>
+          ) : !loading && (
+            <>
+              <Link to="/signin" className={styles.authLink}>
+                Sign in
+              </Link>
+              <span className={styles.divider}>/</span>
+              <Link to="/signup" className={styles.authLink}>
+                Sign up
+              </Link>
+            </>
+          )}
           <Link to="/dashboard" className={styles.dashboardBtn}>
             Dashboard
           </Link>
@@ -67,13 +89,24 @@ function NavBar() {
         ))}
 
         <div className={styles.mobileAuthRow}>
-          <Link to="/signin" onClick={closeMenu} className={styles.authLink}>
-            Sign in
-          </Link>
-          <span className={styles.divider}>/</span>
-          <Link to="/signup" onClick={closeMenu} className={styles.authLink}>
-            Sign up
-          </Link>
+          {user ? (
+            <>
+              <span className={styles.authLink}>Hi {greetingName}</span>
+              <button type="button" className={styles.logoutBtn} onClick={handleLogout}>
+                Log out
+              </button>
+            </>
+          ) : !loading && (
+            <>
+              <Link to="/signin" onClick={closeMenu} className={styles.authLink}>
+                Sign in
+              </Link>
+              <span className={styles.divider}>/</span>
+              <Link to="/signup" onClick={closeMenu} className={styles.authLink}>
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
 
         <Link to="/dashboard" onClick={closeMenu} className={styles.mobileDashboardBtn}>
