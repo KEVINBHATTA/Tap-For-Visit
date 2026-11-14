@@ -135,11 +135,12 @@
 
 .auth-icon-ok,
 .auth-icon-bad,
-.auth-icon-toggle {
+.auth-password-toggle {
   position: absolute;
   right: 10px;
-  top: 11px;
-  font-size: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
 }
 
 .auth-icon-ok {
@@ -150,9 +151,20 @@
   color: #E24B4A;
 }
 
-.auth-icon-toggle {
-  color: #888780;
+.auth-password-toggle {
+  border: none;
+  background: transparent;
+  color: #5f5e5a;
   cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  user-select: none;
+  line-height: 1;
 }
 
 .auth-hint {

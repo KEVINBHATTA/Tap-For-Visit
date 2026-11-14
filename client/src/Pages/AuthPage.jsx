@@ -236,11 +236,14 @@ export default function AuthPage({ initialMode = "signin" }) {
                 autoComplete={isSignup ? "new-password" : "current-password"}
                 required
               />
-              <i
-                className={`ti ${showPassword ? "ti-eye-off" : "ti-eye"} auth-icon-toggle`}
-                aria-hidden="true"
+              <button
+                type="button"
+                className="auth-password-toggle"
+                aria-label={showPassword ? "Hide password" : "Show password"}
                 onClick={() => setShowPassword((s) => !s)}
-              />
+              >
+                {showPassword ? "hide" : "show"}
+              </button>
             </div>
           </div>
 
