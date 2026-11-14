@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "./NavBar.module.css";
 
 const NAV_LINKS = [
-  { label: "Card designs", to: "/card-designs" },
+  { label: "Card designs", to: "/CardDesign" },
   { label: "Profile templates", to: "/templates" },
   { label: "How it works", to: "/howitsworks" },
 ];

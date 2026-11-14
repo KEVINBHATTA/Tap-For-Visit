@@ -8,7 +8,7 @@ import YourProfile from "./Pages/YourProfile.jsx";
 import AuthPage from "./Pages/AuthPage.jsx";
 import HowItWorks from "./Pages/HowItsWork.jsx";
 import AuthCallback from "./Pages/AuthCallback.jsx";
-import CardDesignPage from "./Pages/Carddesignpage.jsx";
+import CardDesignPage from "./Pages/CardDesignPage.jsx";
 
 function App() {
   const [globalProfileData, setGlobalProfileData] = useState(() => {
