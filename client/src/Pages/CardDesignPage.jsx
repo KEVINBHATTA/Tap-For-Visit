@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import "./CardDesignPage.css";
 import Navbar from "../components/Home/NavBar";
 import Footer from "../components/Home/Footer";
@@ -111,9 +112,10 @@ function Strip() {
   );
 }
 
+/* Clicking a card opens the order page for that card: /CardDesign/<card id> */
 function CardTile({ card }) {
   return (
-    <a className="tile" href={`#card-${card._id}`}>
+    <Link className="tile" to={`/CardDesign/${card._id}`}>
       <div className="card">
         <img src={card.image} alt={`${card.name} card design`} loading="lazy" />
       </div>
@@ -121,7 +123,7 @@ function CardTile({ card }) {
         {card.name}
         {card.badge && <i>{card.badge}</i>}
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -188,7 +190,7 @@ export default function CardDesigns() {
           </div>
 
           {visibleGroups.map((g) => (
-            <div className="group" key={g._id}>
+            <div className="group" id={g._id} key={g._id}>
               <div className="ghead">
                 <h3>{g.title}</h3>
                 <p>

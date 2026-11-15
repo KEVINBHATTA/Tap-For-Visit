@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap");
+
+/* Everything is scoped under .co so it can't clash with the other pages' CSS */
+.co{
+  --bg:#e1ddce;--surface:#f6f3ec;--ink:#14141f;--muted:#5a5a6b;--line:rgba(20,20,31,.14);--dark:#14141f;--on-dark:#f6f3ec;
+  color-scheme:light;background:var(--bg);color:var(--ink);
+  font-family:"Outfit",system-ui,sans-serif;font-size:16px;line-height:1.5;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;
+  /* room for the fixed mobile order bar */
+  padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));
+}
+.co *,.co *::before,.co *::after{box-sizing:border-box}
+.co button,.co input,.co textarea{font:inherit;color:inherit}
+
+.co .wrap{max-width:1240px;margin:0 auto;padding:20px 14px 24px}
+
+/* links: always dark, never browser/Vite blue */
+.co a,.co a:visited,.co a:hover,.co a:active{color:var(--ink);text-decoration:none}
+.co a.btn.fill,.co a.btn.fill:visited,.co a.btn.fill:hover,.co a.btn.fill:active{color:var(--on-dark)}
+.co .crumbs a,.co .meta a,.co .help em{text-decoration:underline;text-underline-offset:3px}
+
+.co .crumbs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px;font-size:14px;color:var(--muted)}
+.co .crumbs b{font-weight:400;color:var(--ink)}
+
+.co .page{display:grid;gap:16px}
+.co .pnl{min-width:0;padding:16px;background:var(--surface);border-radius:18px;box-shadow:0 1px 2px rgba(20,20,31,.08)}
+
+/* gallery: the card picture is shown in full (1600x914) */
+.co .stage{position:relative}
+.co .v{display:none;width:100%;height:auto;aspect-ratio:1600/914;object-fit:cover;border-radius:12px;background:var(--dark);box-shadow:0 0 0 1px rgba(0,0,0,.14),0 10px 24px rgba(20,20,31,.16)}
+.co .v.on{display:block}
+/* profile (mobile first): a card-sized window with a visible scrollbar; the tall picture scrolls inside */
+.co .v.profile{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--muted) transparent}
+.co .v.profile img{display:block;width:100%;height:auto}
+.co .v.profile::-webkit-scrollbar{width:6px}
+.co .v.profile::-webkit-scrollbar-track{background:rgba(255,255,255,.12)}
+.co .v.profile::-webkit-scrollbar-thumb{background:rgba(255,255,255,.55);border-radius:6px}
+.co .thumbs{display:flex;gap:8px;margin-top:16px}
+.co .thumbs button{flex:1;min-height:48px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);font-size:13px;cursor:pointer}
+.co .thumbs button[aria-pressed="true"]{border-color:var(--dark);font-weight:500}
+
+.co .note{margin:12px 0 0;font-size:13px;line-height:1.4;color:var(--muted)}
+
+/* details */
+.co .badge{display:inline-block;margin-bottom:8px;padding:2px 10px;border-radius:999px;background:var(--line);font-size:12px}
+.co h1{margin:0;font-size:clamp(26px,3.4vw,34px);line-height:1.1;font-weight:600;letter-spacing:-.02em}
+.co .sub{margin:4px 0 0;color:var(--muted);font-size:15px}
+.co .meta{margin:14px 0 0;padding-bottom:16px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.co .price{padding:16px 0;border-bottom:1px solid var(--line)}
+.co .price strong{font-size:34px;font-weight:600;letter-spacing:-.01em}
+.co .price span{display:block;font-size:14px;color:var(--muted)}
+.co .fields{display:grid;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.co .field{min-width:0}
+.co .field span{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
+.co .field input[type=text]{width:100%;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);font-size:16px}
+.co .field input[aria-invalid="true"]{border-color:#b3261e}
+.co .field input::placeholder,.co .field textarea::placeholder{color:rgba(20,20,31,.35)}
+.co .field textarea{width:100%;min-height:96px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);font-size:16px;line-height:1.4;resize:vertical}
+.co .logo{display:inline-flex;align-items:center;max-width:100%;min-height:44px;padding:0 16px;border:1.5px dashed var(--muted);border-radius:12px;background:none;font-size:14px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.co .qtyrow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 0}
+.co .qtyrow>span{color:var(--muted);font-size:14px;min-width:70px}
+.co .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.co .qty button{width:44px;height:44px;border:0;background:var(--bg);font-size:20px;cursor:pointer}
+.co .qty output{min-width:48px;text-align:center;font-weight:500}
+.co .total{margin-left:auto;text-align:right;font-size:13px;color:var(--muted)}
+.co .total b{display:block;font-size:20px;font-weight:600;color:var(--ink)}
+.co .err{margin:0 0 12px;font-size:14px;color:#b3261e}
+.co .btns{display:flex;flex-wrap:wrap;gap:10px}
+.co .btn{flex:1 1 150px;display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 20px;border-radius:12px;border:1.5px solid var(--dark);background:transparent;font-weight:500;font-size:16px;cursor:pointer}
+.co .btn.fill{background:var(--dark);color:var(--on-dark)}
+
+/* sidebar */
+.co .side h3{margin:0 0 10px;font-size:13px;font-weight:500;color:var(--muted)}
+.co .sec{padding:16px 0;border-bottom:1px solid var(--line)}
+.co .sec:first-child{padding-top:0}
+.co .sec:last-child{border-bottom:0;padding-bottom:0}
+.co .row{display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.co .row small{display:block;color:var(--muted);font-size:13px}
+.co .row + .row{margin-top:14px}
+.co .chg{font-size:13px;font-weight:500;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;background:none;border:0;cursor:pointer}
+.co .inc{margin:0;padding:0;list-style:none;font-size:15px}
+.co .inc li{display:flex;gap:10px;align-items:flex-start}
+.co .inc li+li{margin-top:10px}
+.co .inc svg{flex:none;width:18px;height:18px;margin-top:3px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.co .help{display:block;font-size:15px}
+.co .help b{display:block;font-weight:600}
+.co .help span{font-size:13px;color:var(--muted)}
+.co .help em{display:inline-block;margin-top:6px;font-style:normal;font-size:14px;font-weight:500}
+
+/* loading / not found */
+.co .state{margin:40px 0 16px;font-size:18px;text-align:center}
+.co .state-btn{display:flex;max-width:280px;margin:0 auto}
+
+/* mobile order bar */
+.co .bar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line)}
+.co .bar .t{font-size:12px;color:var(--muted);line-height:1.2}
+.co .bar .t b{display:block;font-size:19px;font-weight:600;color:var(--ink)}
+.co .bar .btn{flex:1;min-height:46px}
+
+/* focus */
+.co .btn:focus-visible,.co .thumbs button:focus-visible,.co .qty button:focus-visible,.co .logo:focus-visible,.co .chg:focus-visible,
+.co input:focus-visible,.co textarea:focus-visible,.co .crumbs a:focus-visible,.co .help:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* ---------- tablet ---------- */
+@media (min-width:600px){
+  .co .wrap{padding:20px 20px 24px}
+  .co .fields{grid-template-columns:1fr 1fr}
+  .co .fields .full{grid-column:1/-1}
+}
+
+/* ---------- desktop ---------- */
+@media (min-width:900px){
+  .co{padding-bottom:0}
+  .co .wrap{padding:28px 32px 56px}
+  .co .page{grid-template-columns:400px minmax(0,1fr) 280px;align-items:start}
+  .co .bar{display:none}
+  /* desktop: profile shown whole at its own proportions, no scroll window */
+  .co .v.profile{aspect-ratio:auto;overflow:visible;background:none;box-shadow:none;border-radius:0}
+  .co .v.profile img{width:auto;max-width:100%;max-height:560px;margin:0 auto;border-radius:12px}
+}
+
+/* ---------- mobile ---------- */
+@media (hover:none) and (pointer:coarse){
+  .co .thumbs button{min-height:48px}
+  .co .btn{min-height:50px}
+}
+@media (max-width:480px){
+  .co .pnl{padding:14px}
+  .co .price strong{font-size:30px}
+  .co .total{margin-left:0;text-align:left;flex:1 1 100%}
+  .co .btns .btn{flex:1 1 100%}
+}

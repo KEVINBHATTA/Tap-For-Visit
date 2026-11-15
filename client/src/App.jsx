@@ -10,6 +10,8 @@ import HowItWorks from "./Pages/HowItsWork.jsx";
 import AuthCallback from "./Pages/AuthCallback.jsx";
 import CardDesignPage from "./Pages/CardDesignPage.jsx";
 import ProfileDesignPage from "./Pages/ProfileDesignPage.jsx";
+import CardOrder from "./Pages/CardOrder.jsx";
+
 
 function App() {
   const [globalProfileData, setGlobalProfileData] = useState(() => {
@@ -37,6 +39,7 @@ function App() {
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/CardDesign" element={<CardDesignPage/>} />
         <Route path="/ProfileDesign" element={<ProfileDesignPage/>} />
+        <Route path="/CardDesign/:cardId" element={<CardOrder />} />
  
        </Routes>
      </Router>
