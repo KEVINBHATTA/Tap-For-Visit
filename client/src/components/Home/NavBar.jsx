@@ -6,7 +6,7 @@ import styles from "./NavBar.module.css";
 
 const NAV_LINKS = [
   { label: "Card designs", to: "/CardDesign" },
-  { label: "Profile templates", to: "/templates" },
+  { label: "Profile templates", to: "/ProfileDesign" },
   { label: "How it works", to: "/howitsworks" },
 ];
 

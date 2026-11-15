@@ -9,6 +9,7 @@ import AuthPage from "./Pages/AuthPage.jsx";
 import HowItWorks from "./Pages/HowItsWork.jsx";
 import AuthCallback from "./Pages/AuthCallback.jsx";
 import CardDesignPage from "./Pages/CardDesignPage.jsx";
+import ProfileDesignPage from "./Pages/ProfileDesignPage.jsx";
 
 function App() {
   const [globalProfileData, setGlobalProfileData] = useState(() => {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/:username" element={<YourProfile profileData={globalProfileData} />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/CardDesign" element={<CardDesignPage/>} />
+        <Route path="/ProfileDesign" element={<ProfileDesignPage/>} />
  
        </Routes>
      </Router>
