@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { MdDeleteSweep } from "react-icons/md";
 import { FiPlus, FiX } from "react-icons/fi";
-import { PLATFORMS, DEFAULT_VISIBLE_LINKS } from "./profileConfig";
+import { PLATFORMS, DEFAULT_VISIBLE_LINKS } from "./ProfileConfig";
 
 function LinksEditor({ formData, handleOnChange, errors = {} }) {
   // Links the user explicitly added (or the defaults). Any link that already

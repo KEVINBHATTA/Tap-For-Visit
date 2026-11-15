@@ -1,7 +1,7 @@
 import React from "react";
 import { MdLocationOn } from "react-icons/md";
 import { AvatarCircle } from "./AvatarPopUp";
-import { PLATFORMS } from "./profileConfig";
+import { PLATFORMS } from "./ProfileConfig";
 
 /** Compact, approximate preview of the public profile. Updates as you type. */
 function ProfilePreview({ formData }) {

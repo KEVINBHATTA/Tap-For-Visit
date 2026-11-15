@@ -1,6 +1,6 @@
 import React from "react";
 import Field from "./Field";
-import { LIMITS } from "./profileConfig";
+import { LIMITS } from "./ProfileConfig";
 
 function FeatureEdits({ formData, handleOnChange, errors = {} }) {
   const bind = (name) => ({
