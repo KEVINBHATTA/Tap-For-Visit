@@ -3,7 +3,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 import { FaBriefcase } from "react-icons/fa";
 import Field from "./Field";
-import { LIMITS } from "./profileConfig";
+import { LIMITS } from "./ProfileConfig";
 
 const STAT_FIELDS = [
   { n: 1, icon: FaPeopleGroup, tone: "green", labelHint: "CLIENTS", valueHint: "500+" },
