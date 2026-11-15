@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./CardOrder.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Home/NavBar";
 import Footer from "../components/Home/Footer";
 
@@ -15,6 +15,8 @@ const DEFAULT_IMAGES = {
 };
 // Route of the card designs list page (the order page is /CardDesign/:cardId)
 const LIST_PATH = "/CardDesign";
+// Key ConfirmOrder.jsx reads the pending order from (also survives a page refresh)
+const ORDER_KEY = "tfv-pending-order";
 const WHATSAPP_NUMBER = "977XXXXXXXXXX"; // country code + number, digits only
 
 const DELIVERY = {
@@ -95,6 +97,7 @@ function Check() {
 /* ------------------------------------------------------------------ */
 export default function CardOrder() {
   const { cardId } = useParams(); // route: /CardDesign/:cardId
+  const navigate = useNavigate();
 
   const [card, setCard] = useState(null);
   const [status, setStatus] = useState("loading"); // loading | ready | missing | error
@@ -141,10 +144,13 @@ export default function CardOrder() {
     return {
       cardId: card._id,
       cardName: card.name,
+      material: card.material,
+      image: card.images?.front || DEFAULT_IMAGES.front,
       quantity: qty,
       unitPrice: card.price,
-      total,
+      delivery: DELIVERY,
       ...form,
+      logo, // File (only kept in memory while navigating)
       logoName: logo ? logo.name : null,
     };
   }
@@ -157,9 +163,13 @@ export default function CardOrder() {
     }
     setError("");
     const order = buildOrder();
-    console.log("order", order);
-    // MongoDB later: send to your backend (use FormData if you upload the logo)
-    // await fetch("/api/orders", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(order) });
+    try {
+      const { logo: _file, ...storable } = order; // a File can't be saved as JSON
+      sessionStorage.setItem(ORDER_KEY, JSON.stringify(storable));
+    } catch {
+      /* storage unavailable: router state still carries the order */
+    }
+    navigate(`${LIST_PATH}/${card._id}/confirm`, { state: { order } });
   }
 
   const whatsappHref = card
@@ -194,7 +204,8 @@ export default function CardOrder() {
   const imageFor = (key) => card.images?.[key] || DEFAULT_IMAGES[key];
 
   return (
-    <><Navbar />
+    <>
+    <Navbar />
     <div className="co">
       
 

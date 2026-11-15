@@ -11,6 +11,9 @@ import AuthCallback from "./Pages/AuthCallback.jsx";
 import CardDesignPage from "./Pages/CardDesignPage.jsx";
 import ProfileDesignPage from "./Pages/ProfileDesignPage.jsx";
 import CardOrder from "./Pages/CardOrder.jsx";
+import ConfirmOrder from "./Pages/ConfirmOrder.jsx";
+import OrderPlaced from "./Pages/OrderPlaced.jsx";
+
 
 
 function App() {
@@ -40,6 +43,8 @@ function App() {
         <Route path="/CardDesign" element={<CardDesignPage/>} />
         <Route path="/ProfileDesign" element={<ProfileDesignPage/>} />
         <Route path="/CardDesign/:cardId" element={<CardOrder />} />
+        <Route path="/CardDesign/:cardId/confirm" element={<ConfirmOrder />} />
+        <Route path="/order-placed" element={<OrderPlaced />} />
  
        </Routes>
      </Router>
