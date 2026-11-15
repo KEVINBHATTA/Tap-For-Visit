@@ -12,11 +12,11 @@ import Footer from "../components/Home/Footer";
 /* Put the profile picture in /public and match the name below.        */
 /* ------------------------------------------------------------------ */
 const SAMPLE_IMAGE = "/profile.jpg";
+const WHATSAPP_URL = "https://wa.me/9779765637618";
 
 // Where the chosen template is remembered for the next step (read it on your next page)
 const SELECTED_KEY = "tfv-selected-profile";
-// Page the pencil icon opens
-const EDIT_PATH = "/profileedits";
+const EDIT_PATH = "/dashboard";
 
 const DEMO_GROUPS = [
   {
@@ -228,7 +228,7 @@ export default function ProfileDesignPage() {
                 </span>
                 <em>Start customizing</em>
               </a>
-              <a className="opt" href="#">
+              <a className="opt" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 <b>Get help from our team</b>
                 <span>
                   Tell us what you want on WhatsApp and we&rsquo;ll set it up

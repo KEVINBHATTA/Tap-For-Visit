@@ -13,6 +13,7 @@ import ProfileDesignPage from "./Pages/ProfileDesignPage.jsx";
 import CardOrder from "./Pages/CardOrder.jsx";
 import ConfirmOrder from "./Pages/ConfirmOrder.jsx";
 import OrderPlaced from "./Pages/OrderPlaced.jsx";
+import Dashboard from "./Pages/Dashboard.jsx";
 
 
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/CardDesign/:cardId" element={<CardOrder />} />
         <Route path="/CardDesign/:cardId/confirm" element={<ConfirmOrder />} />
         <Route path="/order-placed" element={<OrderPlaced />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
  
        </Routes>
      </Router>

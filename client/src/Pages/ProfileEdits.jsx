@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { CiCamera } from "react-icons/ci";
 import "./ProfileEdits2.css";
 
-import Header from "../components/ProfileEdits/Header";
 import FeatureEdits from "../components/ProfileEdits/FeatureEdits";
 import Link from "../components/ProfileEdits/Link";
 import ToggleSwitch from "../components/ProfileEdits/ToggleSwitch";
@@ -32,7 +31,7 @@ function usePhoneScale() {
 
   useEffect(() => {
     const update = () => {
-      const available = window.innerHeight - 176; // header + save bar + spacing
+      const available = window.innerHeight - 112; // save bar + spacing
       setScale(Math.min(1, Math.max(0.55, available / PHONE_H)));
     };
     update();
@@ -164,13 +163,6 @@ function ProfileEdits() {
 
   return (
     <div className="pe-page">
-      <Header
-        userName={formData.userName}
-        isDirty={isDirty}
-        previewOnly={previewOnly}
-        onTogglePreview={() => setPreviewOnly((on) => !on)}
-      />
-
       <div className={`pe-shell ${previewOnly ? "is-preview" : ""}`}>
         <main className="pe-main">
           <section className="pe-card pe-avatar-card">
@@ -219,7 +211,14 @@ function ProfileEdits() {
 
       <ProfileFooter />
 
-      <SaveChange onSave={handleSave} onDiscard={handleDiscard} isDirty={isDirty} saving={saving} />
+      <SaveChange
+        onSave={handleSave}
+        onDiscard={handleDiscard}
+        isDirty={isDirty}
+        saving={saving}
+        previewOnly={previewOnly}
+        onTogglePreview={() => setPreviewOnly((on) => !on)}
+      />
 
       {avatarOpen && (
         <AvatarPopUp

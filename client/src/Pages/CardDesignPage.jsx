@@ -11,6 +11,7 @@ import Footer from "../components/Home/Footer";
 /* Image lives in /public as BackPart.png.                         */
 /* ------------------------------------------------------------------ */
 const SAMPLE_IMAGE = "/BackPart.png";
+const WHATSAPP_URL = "https://wa.me/9779765637618";
 
 const DEMO_GROUPS = [
   {
@@ -52,7 +53,7 @@ const SLIDES = [
     title: "Get help from our team",
     text: "Tell us what you want on WhatsApp and we\u2019ll design it with you, at free cost.",
     cta: "Message us",
-    href: "#",
+    href: WHATSAPP_URL,
   },
 ];
 
@@ -90,7 +91,14 @@ function Strip() {
                 <b>{s.title}</b>
                 <span>{s.text}</span>
               </div>
-              <a className="btn fill" href={s.href}>{s.cta}</a>
+              <a
+                className="btn fill"
+                href={s.href}
+                target={s.href === WHATSAPP_URL ? "_blank" : undefined}
+                rel={s.href === WHATSAPP_URL ? "noopener noreferrer" : undefined}
+              >
+                {s.cta}
+              </a>
             </div>
           ))}
         </div>
@@ -215,7 +223,7 @@ export default function CardDesigns() {
               <span>Add your logo, colors, and text to any design above.</span>
               <em>Start customizing</em>
             </a>
-            <a className="opt" href="#">
+            <a className="opt" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <b>Get help from our team</b>
               <span>Tell us what you want on WhatsApp and we&rsquo;ll design it with you, at free cost.</span>
               <em>Message us</em>

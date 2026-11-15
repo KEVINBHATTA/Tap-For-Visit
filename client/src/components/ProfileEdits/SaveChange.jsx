@@ -1,8 +1,9 @@
 import React from "react";
 import { FiSave } from "react-icons/fi";
+import { FiEdit2, FiEye } from "react-icons/fi";
 
 /** Sticky bottom bar: the single place to save or discard changes. */
-function SaveChange({ onSave, onDiscard, isDirty, saving }) {
+function SaveChange({ onSave, onDiscard, isDirty, saving, previewOnly, onTogglePreview }) {
   return (
     <div className="pe-savebar">
       <div className="pe-savebar-inner">
@@ -16,6 +17,16 @@ function SaveChange({ onSave, onDiscard, isDirty, saving }) {
               Discard
             </button>
           )}
+
+          <button
+            type="button"
+            className="pe-btn pe-btn-ghost"
+            onClick={onTogglePreview}
+            aria-pressed={previewOnly}
+          >
+            {previewOnly ? <FiEdit2 aria-hidden="true" /> : <FiEye aria-hidden="true" />}
+            {previewOnly ? "Edit profile" : "Preview"}
+          </button>
 
           <button
             type="button"

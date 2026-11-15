@@ -1,0 +1,79 @@
+/* Insights component. Everything is scoped under .ins.
+   It reads the page's theme variables (--ink, --panel, ...) so it follows the white and dark themes,
+   and falls back to white-theme colours when used on its own. */
+
+.ins{
+  --ins-ink:var(--ink,#111111);
+  --ins-muted:var(--muted,#6b6b6b);
+  --ins-line:var(--line,rgba(0,0,0,.1));
+  --ins-panel:var(--panel,#ffffff);
+  --ins-border:var(--pborder,rgba(0,0,0,.1));
+  --ins-shadow:var(--pshadow,0 1px 2px rgba(0,0,0,.04));
+  --ins-act:var(--act,#111111);
+  --ins-actfg:var(--actfg,#ffffff);
+  --ins-c1:var(--c1,#111111);
+  --ins-c2:var(--c2,#b8b8b8);
+  --ins-bar:var(--bar,#111111);
+  --ins-ring:var(--ring,#111111);
+
+  margin-bottom:28px;color:var(--ins-ink);font-family:inherit;
+}
+.ins *,.ins *::before,.ins *::after{box-sizing:border-box}
+.ins button{font:inherit;color:inherit}
+
+/* header + range switch */
+.ins .ins-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}
+.ins .ins-head h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.01em}
+.ins .ins-seg{display:inline-flex;padding:3px;border:1px solid var(--ins-line);border-radius:12px;background:var(--ins-panel)}
+.ins .ins-seg button{min-height:36px;padding:0 14px;border:0;border-radius:9px;background:none;font-size:13px;cursor:pointer}
+.ins .ins-seg button[aria-pressed="true"]{background:var(--ins-act);color:var(--ins-actfg)}
+.ins button:focus-visible{outline:2px solid var(--ins-ring);outline-offset:2px}
+
+/* grid: 2 columns on phones, 4 on desktop */
+.ins .ins-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ins .ins-wide,.ins .ins-chartcard,.ins .ins-links{grid-column:span 2}
+.ins .ins-card{min-width:0;padding:16px;background:var(--ins-panel);border:1px solid var(--ins-border);border-radius:18px;box-shadow:var(--ins-shadow)}
+
+/* stat cards */
+.ins .ins-stat small,.ins .ins-label{display:block;font-size:13px;color:var(--ins-muted)}
+.ins .ins-stat strong{display:block;margin-top:2px;font-size:30px;font-weight:600;letter-spacing:-.01em;line-height:1.15}
+.ins .ins-stat p{margin:2px 0 0;font-size:12px;color:var(--ins-muted)}
+
+/* NFC vs QR */
+.ins .ins-split{display:flex;height:10px;margin:12px 0 10px;border-radius:999px;overflow:hidden;background:var(--ins-line)}
+.ins .ins-split i{display:block;height:100%}
+.ins .ins-legend{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.ins .ins-legend span{display:flex;align-items:center;gap:6px}
+.ins .ins-legend b{font-weight:600}
+.ins .ins-legend em{display:inline-block;width:10px;height:10px;border-radius:50%;font-style:normal}
+
+/* chart */
+.ins .ins-chart{display:flex;align-items:flex-end;gap:4px;height:150px;margin-top:14px}
+.ins .ins-chart i{flex:1;min-width:2px;min-height:3px;border-radius:5px 5px 0 0;background:var(--ins-bar)}
+.ins .ins-chart-7{gap:10px}
+.ins .ins-axis{display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--ins-muted)}
+.ins .ins-empty{padding:34px 12px;text-align:center;color:var(--ins-muted);font-size:15px}
+.ins .ins-empty b{display:block;margin-bottom:2px;color:var(--ins-ink);font-weight:600}
+
+/* top links */
+.ins .ins-links ul{margin:10px 0 0;padding:0;list-style:none}
+.ins .ins-links li{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:15px}
+.ins .ins-links li+li{border-top:1px solid var(--ins-line)}
+.ins .ins-links li.ins-none{color:var(--ins-muted)}
+.ins .ins-links li i{display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:var(--ins-line);font-style:normal;font-size:12px;font-weight:600}
+.ins .ins-links li b{margin-left:auto;font-weight:600}
+
+/* ---------- desktop ---------- */
+@media (min-width:1000px){
+  .ins .ins-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ins .ins-wide{grid-column:span 2}
+  .ins .ins-chartcard{grid-column:span 3}
+  .ins .ins-links{grid-column:span 1}
+}
+
+/* ---------- small phones ---------- */
+@media (max-width:480px){
+  .ins .ins-card{padding:14px}
+  .ins .ins-stat strong{font-size:26px}
+  .ins .ins-chart-7{gap:6px}
+}

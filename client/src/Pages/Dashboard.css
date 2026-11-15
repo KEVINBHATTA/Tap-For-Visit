@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap");
+
+/* Everything is scoped under .db so it can't clash with the other pages' CSS */
+
+/* ---------- white theme (default) ---------- */
+.db{
+  --page:#ffffff;--side:#ffffff;--panel:#ffffff;--pborder:rgba(0,0,0,.1);--pshadow:0 1px 2px rgba(0,0,0,.04);
+  --ink:#111111;--muted:#6b6b6b;--line:rgba(0,0,0,.1);--field:#f4f4f5;
+  --act:#111111;--actfg:#ffffff;--c1:#111111;--c2:#b8b8b8;--bar:#111111;
+  --danger:#b42318;--ring:#111111;--badge:#d92d20;--top:rgba(255,255,255,.92);--scrim:rgba(0,0,0,.4);
+  color-scheme:light;
+  background:var(--page);color:var(--ink);
+  font-family:"Outfit",system-ui,sans-serif;font-size:16px;line-height:1.5;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;
+}
+
+/* ---------- dark theme: plain black and neutral greys, no blue or violet ---------- */
+.db[data-theme="dark"]{
+  --page:#000000;--side:#0a0a0a;--panel:#121212;--pborder:rgba(255,255,255,.1);--pshadow:none;
+  --ink:#f5f5f5;--muted:#9b9b9b;--line:rgba(255,255,255,.1);--field:#1b1b1b;
+  --act:#2a2a2a;--actfg:#ffffff;--c1:#f5f5f5;--c2:#6b6b6b;--bar:#e5e5e5;
+  --danger:#ef6b5f;--ring:#f5f5f5;--top:rgba(0,0,0,.88);--scrim:rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+
+.db *,.db *::before,.db *::after{box-sizing:border-box}
+.db [hidden]{display:none!important}
+.db button,.db input{font:inherit;color:inherit}
+
+/* links: always follow the theme, never browser/Vite blue */
+.db a,.db a:visited,.db a:hover,.db a:active{color:inherit;text-decoration:none}
+
+.db .ic{flex:none;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.db .app{display:flex;min-height:100vh}
+.db .scrim{position:fixed;inset:0;z-index:20;background:var(--scrim)}
+
+/* sidebar */
+.db .side{position:fixed;z-index:25;top:0;bottom:0;left:0;display:flex;flex-direction:column;width:272px;max-width:84vw;padding:20px 12px calc(16px + env(safe-area-inset-bottom,0px));background:var(--side);border-right:1px solid var(--line);transform:translateX(-102%);transition:transform .25s ease;overflow:auto}
+.db .side.open{transform:none}
+/* left padding matches the menu items (12px) so the avatar lines up with the menu icons */
+.db .who{display:flex;align-items:center;gap:12px;padding:4px 12px 18px}
+.db .av{flex:none;display:grid;place-items:center;overflow:hidden;width:48px;height:48px;border-radius:50%;background:#d9dbe0;border:2px solid var(--ring)}
+.db .who>div:last-child{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.db .av svg{width:70%;height:70%;fill:#9aa0ab;align-self:end}
+.db .who b{display:block;font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.db .who small{display:block;margin-top:1px;color:var(--muted);font-size:13px;line-height:1.25}
+.db .nav{display:grid;gap:2px}
+.db .navitem{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:0 12px;border:0;border-radius:12px;background:none;font-size:15px;text-align:left;cursor:pointer}
+.db .navitem:hover{background:var(--field)}
+.db .homelink{margin:0 0 12px;width:auto;border:1px solid var(--line)}
+.db .navitem[aria-current="page"]{background:var(--act);color:var(--actfg)}
+.db .out{margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.db .out button{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;margin-top:8px;padding:0 12px;border:0;border-radius:12px;background:none;color:var(--danger);font-size:15px;cursor:pointer}
+.db .out button:hover{background:var(--field)}
+
+/* main + top bar */
+.db .main{flex:1;min-width:0}
+.db .topbar{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:6px;padding:8px 10px;background:var(--top);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.db .topbar h1{margin:0;font-size:17px;font-weight:600;text-align:center}
+.db .tools{display:flex;align-items:center}
+.db .ib{position:relative;display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:12px;background:none;cursor:pointer}
+.db .ib:hover{background:var(--field)}
+.db .ib .ic{width:22px;height:22px}
+.db .dot{position:absolute;top:6px;right:5px;display:grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--badge);color:#fff;font-size:11px;font-weight:600;line-height:1}
+.db .content{max-width:980px;margin:0 auto;padding:16px 16px 40px}
+
+/* sections + panels */
+.db .gc{padding:16px;background:var(--panel);border:1px solid var(--pborder);border-radius:18px;box-shadow:var(--pshadow)}
+.db .sec{margin-bottom:28px}
+
+/* pages not built yet */
+.db .stub h2{margin:0 0 4px;font-size:20px;font-weight:600}
+.db .stub code{display:inline-block;margin:4px 0 8px;padding:2px 8px;border-radius:8px;background:var(--line);font-size:13px}
+.db .stub p{margin:0;color:var(--muted);font-size:15px}
+.db .stub p.small{margin-top:10px;font-size:13px}
+
+/* notifications */
+.db .sheet{position:fixed;z-index:30;left:0;right:0;bottom:0;max-height:72vh;overflow:auto;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));background:var(--side);border:1px solid var(--line);border-radius:20px 20px 0 0}
+.db .sheet header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.db .sheet h2{margin:0;font-size:18px;font-weight:600}
+.db .sheet header button{min-height:40px;padding:6px 0 6px 12px;border:0;background:none;font-size:13px;font-weight:500;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.db .nt{display:flex;gap:12px;width:100%;padding:12px 8px;border:0;border-top:1px solid var(--line);border-radius:0;background:none;text-align:left;cursor:pointer}
+.db .nt.unread{background:var(--field)}
+.db .nd{flex:none;width:8px;height:8px;margin-top:8px;border-radius:50%;background:transparent}
+.db .nt.unread .nd{background:var(--ink)}
+.db .nt b{display:block;font-size:15px;font-weight:600;line-height:1.3}
+.db .nt span{display:block;font-size:14px;color:var(--muted)}
+.db .nt small{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+
+.db :focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.db .side{transition:none}}
+
+/* ---------- tablet ---------- */
+@media (min-width:768px){
+  .db .app{position:relative}
+  .db .side{position:sticky;top:0;height:100vh;align-self:flex-start;transform:none;max-width:272px;flex:none}
+  .db .scrim{display:none}
+  .db .topbar{grid-template-columns:1fr auto;padding:8px 24px}
+  .db .topbar h1{text-align:left}
+  .db .hb{display:none}
+  .db .content{padding:24px 24px 48px}
+  .db .sheet{left:auto;right:24px;bottom:auto;top:60px;width:360px;border-radius:18px}
+}
+
+/* ---------- phones ---------- */
+@media (max-width:480px){
+  .db .content{padding:14px 12px 40px}
+  .db .gc{padding:14px}
+}
+
+/* ---------- ProfileEdits inside the dashboard ---------- */
+/* ProfileEdits follows the dashboard theme by itself (it reads data-theme="dark" from .db). */
+.db .pe-page{min-height:0;--pe-font:"Outfit",system-ui,sans-serif}
+.db .content:has(.pe-page){max-width:1240px}
+.db .pe-savebar{z-index:15}
+@media (min-width:768px){
+  .db .pe-savebar{left:272px} /* keep the save bar clear of the sidebar */
+}
