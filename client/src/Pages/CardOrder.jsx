@@ -194,8 +194,9 @@ export default function CardOrder() {
   const imageFor = (key) => card.images?.[key] || DEFAULT_IMAGES[key];
 
   return (
+    <><Navbar />
     <div className="co">
-      <Navbar />
+      
 
       <div className="wrap">
         <nav className="crumbs" aria-label="Breadcrumb">
@@ -396,5 +397,6 @@ export default function CardOrder() {
         </button>
       </div>
     </div>
+    </>
   );
 }
