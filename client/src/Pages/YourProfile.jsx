@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Profile from "./Profile";
+import Profile from "./Template1";
 import Template from "./Template2";
 import { useParams } from "react-router-dom";
 import PageNotFound from "./PageNotFound";

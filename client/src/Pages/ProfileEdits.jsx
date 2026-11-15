@@ -1,153 +1,241 @@
-import React from "react";
-import "./ProfileEdits.css";
-import Header from "../components/ProfileEdits/Header";
-import Avatar from "../components/Avatar";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CiCamera } from "react-icons/ci";
+import "./ProfileEdits2.css";
+
+import Header from "../components/ProfileEdits/Header";
 import FeatureEdits from "../components/ProfileEdits/FeatureEdits";
 import Link from "../components/ProfileEdits/Link";
 import ToggleSwitch from "../components/ProfileEdits/ToggleSwitch";
-import ProfileFooter from "../components/ProfileFooter";
 import SaveChange from "../components/ProfileEdits/SaveChange";
-import { useNavigate } from "react-router-dom";
-import AvatarPopUp from "../components/ProfileEdits/AvatarPopUp";
+import Template1 from "./Template1"; // src/pages/Template1
+import AvatarPopUp, { AvatarCircle } from "../components/ProfileEdits/AvatarPopUp";
+import ProfileFooter from "../components/ProfileFooter";
+import {
+  loadProfile,
+  saveProfile,
+  saveDraft,
+  clearDraft,
+  normalizeProfile,
+  validateProfile,
+} from "../components/ProfileEdits/ProfileConfig";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+// Real phone proportions: a 390 x 844 screen (iPhone 14) plus a 14px bezel.
+const PHONE_W = 418;
+const PHONE_H = 872;
+
+/** Scale factor that keeps the whole phone visible in the current window height. */
+function usePhoneScale() {
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const update = () => {
+      const available = window.innerHeight - 176; // header + save bar + spacing
+      setScale(Math.min(1, Math.max(0.55, available / PHONE_H)));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return scale;
+}
+
+const slug = (text) =>
+  (text || "").trim().toLowerCase().replace(/\s+/g, "_").replace(/[^\w-]/g, "") || "anonymous";
 
 function ProfileEdits() {
-  const defaultProfileData = {
-    userName: "",
-    url: "",
-    template: "",
-    fullName: "",
-    job: "",
-    company: "",
-    location: "",
-    bio: "",
-    quote: "",
-    phone: "",
-    email: "",
-    linkedin: "",
-    instagram: "",
-    youtube: "",
-    facebook: "",
-    tiktok: "",
-    x: "",
-    website: "",
-    profileImage: "",
-    statLabel1: "",
-    statValue1: "",
-    statLabel2: "",
-    statValue2: "",
-    statLabel3: "",
-    statValue3: "",
-    showLocation: true,
-    showStat: false,
-  };
-
   const navigate = useNavigate();
 
-  const [formData, setFormData] = React.useState(() => {
-    const savedData = localStorage.getItem("profileFormData");
+  // Read storage once. `saved` mirrors the server; `draft` is unsaved work.
+  const initial = useRef(null);
+  if (initial.current === null) initial.current = loadProfile();
 
-    if (savedData) {
-      return { ...defaultProfileData, ...JSON.parse(savedData) };
-    }
+  const [savedData, setSavedData] = useState(initial.current.saved);
+  const [formData, setFormData] = useState(initial.current.draft ?? initial.current.saved);
+  const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [avatarOpen, setAvatarOpen] = useState(false);
+  const [toast, setToast] = useState(null);
+  const [previewOnly, setPreviewOnly] = useState(false);
+  const phoneScale = usePhoneScale();
 
-    return defaultProfileData;
-  });
+  const isDirty = useMemo(
+    () => JSON.stringify(formData) !== JSON.stringify(savedData),
+    [formData, savedData],
+  );
 
-  const handleInputChange = (name, value) => {
-    setFormData((prevData) => {
-      const updatedData = {
-        ...prevData,
-        [name]: value,
-      };
-      localStorage.setItem("profileFormData", JSON.stringify(updatedData));
-      return updatedData;
+  // Keep an unsaved draft so a refresh or accidental close doesn't lose work.
+  useEffect(() => {
+    const id = setTimeout(() => (isDirty ? saveDraft(formData) : clearDraft()), 400);
+    return () => clearTimeout(id);
+  }, [formData, isDirty]);
+
+  // Warn before closing the tab with unsaved changes.
+  useEffect(() => {
+    if (!isDirty) return undefined;
+    const warn = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [isDirty]);
+
+  // Auto-dismiss toasts.
+  useEffect(() => {
+    if (!toast) return undefined;
+    const id = setTimeout(() => setToast(null), 3500);
+    return () => clearTimeout(id);
+  }, [toast]);
+
+  const handleChange = useCallback((name, value) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => {
+      if (!prev[name]) return prev;
+      const { [name]: _removed, ...rest } = prev;
+      return rest;
     });
-  };
-
-  // const handleSave = (e) => {
-  //   if (e && e.preventDefault) e.preventDefault();
-  //   console.log("Submitted Form Data:", formData);
-  //   localStorage.setItem("profileFormData", JSON.stringify(formData));
-  //   navigate(`/${formData?.userName}`, { state: formData });
-  // };
+  }, []);
 
   const handleSave = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
-    // localStorage.setItem("profileFormData", JSON.stringify(formData));
-    console.log("Submitting Form Data to Server:", formData);
+    e?.preventDefault?.();
+    if (saving) return;
 
+    const payload = normalizeProfile(formData);
+    const found = validateProfile(payload);
+
+    if (Object.keys(found).length > 0) {
+      setErrors(found);
+      setToast({ type: "error", message: "Please fix the highlighted fields." });
+      const el = document.getElementById(`field-${Object.keys(found)[0]}`);
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      el?.focus({ preventScroll: true });
+      return;
+    }
+
+    if (!payload.userName) {
+      setToast({ type: "error", message: "Missing username. Please sign in again." });
+      return;
+    }
+
+    setSaving(true);
     try {
-      //live network PUT request to your server
-      const response = await fetch(
-  `${import.meta.env.VITE_API_URL}/api/userProfile/update/${formData.userName}`,
+      const res = await fetch(
+        `${API_URL}/api/userProfile/update/${encodeURIComponent(payload.userName)}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData), // Sends your flat formData object
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         },
       );
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || !result.success) throw new Error(result.message || "Unknown error");
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        console.log("Database update successful:", result.message);
-
-        // 2. Keep localStorage updated as a backup fallback
-        localStorage.setItem("profileFormData", JSON.stringify(formData));
-
-        // 3. Navigate away to the user's profile view
-        navigate(`/${formData?.userName}`, { state: formData });
-      } else {
-        // If server returns a 404 or validation error
-        alert(`Failed to save profile: ${result.message || "Unknown error"}`);
-      }
-    } catch (error) {
-      // Catches total network dropouts if the server is offline
-      console.error("Network error connecting to API:", error);
-      alert(
-        "Could not connect to the backend server. Make sure it is running!",
-      );
+      setFormData(payload);
+      setSavedData(payload);
+      setErrors({});
+      saveProfile(payload); // local backup fallback
+      clearDraft();
+      navigate(`/${payload.userName}`, { state: payload });
+    } catch (err) {
+      setToast({
+        type: "error",
+        message:
+          err instanceof TypeError
+            ? "Couldn't reach the server. Check your connection and try again."
+            : `Failed to save profile: ${err.message}`,
+      });
+    } finally {
+      setSaving(false);
     }
   };
 
-  //  for uploading picture open popup
-  const [isOpen, setIsOpen] = React.useState(false);
-  //  for uploading picture in Profile
-  const [file, setFile] = React.useState(null);
+  const handleDiscard = () => {
+    if (!window.confirm("Discard all unsaved changes?")) return;
+    setFormData(savedData);
+    setErrors({});
+    clearDraft();
+  };
+
+  const closeAvatar = useCallback(() => setAvatarOpen(false), []);
 
   return (
-    <div className="background">
-      <div className="ProfileEdits">
-        <Header onSave={handleSave} formData={formData} />
+    <div className="pe-page">
+      <Header
+        userName={formData.userName}
+        isDirty={isDirty}
+        previewOnly={previewOnly}
+        onTogglePreview={() => setPreviewOnly((on) => !on)}
+      />
 
-        <div className="AvatarSection" onClick={() => setIsOpen(true)}>
-          <Avatar id="PicEdits" file={file} />
-          <div className="camerasection">
-            <CiCamera id="cameraicon" />
-            <p className="InfoText"> ChangePhoto </p>
+      <div className={`pe-shell ${previewOnly ? "is-preview" : ""}`}>
+        <main className="pe-main">
+          <section className="pe-card pe-avatar-card">
+            <button
+              type="button"
+              className="pe-avatar-btn"
+              onClick={() => setAvatarOpen(true)}
+              aria-label="Change profile photo"
+            >
+              <AvatarCircle src={formData.profileImage} name={formData.fullName} size={92} />
+              <span className="pe-avatar-badge">
+                <CiCamera aria-hidden="true" />
+              </span>
+            </button>
+
+            <div>
+              <h2 className="pe-card-title">{formData.fullName || "Your name"}</h2>
+              {formData.userName && <p className="pe-card-sub">@{formData.userName}</p>}
+              <button type="button" className="pe-link-btn" onClick={() => setAvatarOpen(true)}>
+                Change photo
+              </button>
+            </div>
+          </section>
+
+          <FeatureEdits formData={formData} handleOnChange={handleChange} errors={errors} />
+          <Link formData={formData} handleOnChange={handleChange} errors={errors} />
+          <ToggleSwitch formData={formData} handleOnChange={handleChange} />
+        </main>
+
+        <aside className="pe-aside" aria-label="Live phone preview">
+          <div
+            className="pe-phone-wrap"
+            style={{ width: PHONE_W * phoneScale, height: PHONE_H * phoneScale }}
+          >
+            <div className="pe-phone" style={{ transform: `scale(${phoneScale})` }}>
+              <span className="pe-phone-notch" aria-hidden="true" />
+              <div className="pe-phone-screen">
+                {/* Change the prop name if Template1 expects something other than `formData` */}
+                <Template1 formData={formData} />
+              </div>
+              <span className="pe-phone-bar" aria-hidden="true" />
+            </div>
           </div>
-        </div>
-
-        <AvatarPopUp
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          file={file}
-          setFile={setFile}
-          formData={formData}
-          setFormData={setFormData}
-        />
-
-        <FeatureEdits formData={formData} handleOnChange={handleInputChange} />
-        <hr className="horizontalline" />
-        <Link formData={formData} handleOnChange={handleInputChange} />
-        <hr className="horizontalline" />
-        <ToggleSwitch formData={formData} handleOnChange={handleInputChange} />
-        <SaveChange onSave={handleSave} />
-        <ProfileFooter />
+        </aside>
       </div>
+
+      <ProfileFooter />
+
+      <SaveChange onSave={handleSave} onDiscard={handleDiscard} isDirty={isDirty} saving={saving} />
+
+      {avatarOpen && (
+        <AvatarPopUp
+          currentImage={formData.profileImage}
+          name={formData.fullName}
+          publicIdBase={slug(formData.userName || formData.fullName)}
+          onClose={closeAvatar}
+          onUploaded={(url) => handleChange("profileImage", url)}
+        />
+      )}
+
+      {toast && (
+        <div className={`pe-toast pe-toast-${toast.type}`} role="status">
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 }

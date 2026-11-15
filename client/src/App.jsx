@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Profile from "./Pages/Profile.jsx";
+import Template1 from './Pages/Template1.jsx';
 import ProfileEdits from "./Pages/ProfileEdits.jsx";
 import Template2 from "./Pages/Template2.jsx";
 import Home from "./Pages/Home.jsx";
@@ -35,7 +35,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/signin" element={<AuthPage/>} />
         <Route path="/howitsworks" element={<HowItWorks/>}/>
-        <Route path="/Template1" element={<Profile />} />
+        <Route path="/Template1" element={<Template1 />} />
         <Route path="/ProfileEdits" element={<ProfileEdits />} />
         <Route path="/Template2" element={<Template2 />} />
         <Route path="/:username" element={<YourProfile profileData={globalProfileData} />} />

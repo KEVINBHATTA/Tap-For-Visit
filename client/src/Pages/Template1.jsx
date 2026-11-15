@@ -7,7 +7,7 @@ import About from "../components/About";
 import Contact from "../components/Contact";
 import SaveContact from "../components/SaveContact";
 import Edit from "../components/Edit-icon";
-import "./Profile.css";
+import "./Template1.css";
 import ProfileFooter from "../components/ProfileFooter";
 import { useLocation } from "react-router-dom";
 

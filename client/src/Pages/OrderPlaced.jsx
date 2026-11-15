@@ -92,8 +92,9 @@ export default function OrderPlaced() {
   ];
 
   return (
+    <> <Navbar />
     <div className="op">
-      <Navbar />
+      
 
       <main className="opw">
         <section className="opc" aria-labelledby="op-title">
@@ -224,5 +225,6 @@ export default function OrderPlaced() {
 
       <Footer />
     </div>
+    </>
   );
 }

@@ -1,0 +1,308 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap");
+
+/* ---------- tokens ---------- */
+
+:root {
+  --ink: #0d0d1f;
+  --ink-soft: #1a0a2e;
+  --ink-deep: #050510;
+  --purple: #a855f7;
+  --cyan: #06b6d4;
+  --gold: #f0c040;
+  --navy: rgb(4, 4, 58);
+  --glass: rgba(255, 255, 255, 0.3);
+}
+
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+.element-class {
+  scrollbar-width: none; /* Firefox */
+}
+
+.element-class::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- page background (all screen sizes) ---------- */
+
+.body {
+  min-height: 100vh;
+  background-color: #e9e4f7; /* shows while the image loads */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6)),
+    url("../assets/Resources/bg picture.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* On laptops/desktops keep the picture still while the profile scrolls. */
+@media screen and (min-width: 769px) {
+  .body {
+    background-attachment: fixed;
+  }
+}
+
+/* ---------- top bar ---------- */
+
+.Edit-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Edit {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  padding: 9px;
+  border: 1px solid white;
+  border-radius: 50%;
+  background-color: var(--glass);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.Edit:hover {
+  transform: scale(1.08);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+#Edit-icon {
+  font-size: 1.3rem;
+}
+
+/* ---------- avatar + identity ---------- */
+
+.Avatar {
+  width: 130px;
+  height: 130px;
+  padding: 2.5px;
+  border-radius: 50%;
+  border-left: 1.5px solid var(--cyan);
+  background-color: var(--purple);
+  box-shadow: 0 0 7px var(--cyan);
+  object-fit: cover;
+}
+
+.Avatar-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 20px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 150px;
+  height: 25px;
+  margin: 1px;
+  padding: 0 30px;
+  border: 2px solid rgba(92, 92, 255, 0.671);
+  border-radius: 9999px;
+  background-color: var(--navy);
+  box-shadow: 0 0 7px var(--cyan);
+  color: var(--gold);
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.badge-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  margin: 0 5px 5px 0;
+  color: var(--gold);
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+
+.Profile-Name {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.Company-Name {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.Location {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 150px;
+  height: 25px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.Location-icon {
+  color: var(--ink-soft);
+}
+
+#location-text {
+  margin-top: 15px;
+}
+
+/* ---------- stats (Feature component) ---------- */
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 60px;
+}
+
+.Box {
+  border: 0.1px solid white;
+  background-color: var(--glass);
+}
+
+#box-1 {
+  border-radius: 15px 0 0 15px;
+}
+
+#box-3 {
+  border-radius: 0 15px 15px 0;
+}
+
+.Top-text {
+  margin: 4px 0 3px;
+  color: white;
+  font-size: 18px;
+}
+
+.Bottom-text {
+  color: var(--ink-deep);
+  font-size: 11px;
+}
+
+/* ---------- about ---------- */
+
+.horizonal-line {
+  margin: 15px 15px 0;
+  color: rgb(3, 3, 3);
+}
+
+.Hint-text {
+  margin-top: 5px;
+  margin-left: 15px;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+.About-section {
+  min-height: 40px;
+  margin: 0 15px;
+  padding: 10px 10px 0;
+  border-radius: 15px;
+}
+
+.Bio {
+  margin-bottom: 1px;
+}
+
+.Quotes {
+  color: var(--ink);
+  font-style: italic;
+}
+
+/* ---------- contact rows ---------- */
+
+.Contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 60px;
+  margin: 0 15px 10px;
+  border-radius: 15px;
+  font-size: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Contact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -10px rgba(13, 13, 31, 0.35);
+}
+
+.contact-icon-bg {
+  width: 50px;
+  height: 50px;
+  padding-top: 13px;
+  border-radius: 15px;
+}
+
+#contact-icon {
+  font-size: 1.4rem;
+}
+
+/* icon colours */
+.Green { background-color: #e7e1b1; color: #0d530e; }
+.Blue  { background-color: #eae0cf; color: #111844; }
+.Navy  { background-color: #c4e2f5; color: #121358; }
+.Red   { background-color: #dcc3aa; color: #810b38; }
+.Dirt  { background-color: #aeb784; color: #41431b; }
+
+/* ---------- text helpers ---------- */
+
+.text {
+  color: #212529;
+  text-decoration: none;
+}
+
+.link {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+#Left {
+  position: relative;
+  top: 10px;
+  text-align: left;
+}
+
+.Text-Section {
+  display: flex;
+}
+
+/* ---------- save contact + footer ---------- */
+
+.Save-contact-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin: 40px 15px 15px;
+  border: 1px solid #06202b;
+  border-radius: 10px;
+  background-color: rgba(162, 203, 139, 0.342);
+  transition: background-color 0.2s ease;
+}
+
+.Save-contact-section:hover {
+  background-color: rgba(162, 203, 139, 0.55);
+}
+
+#Savecontact-icon {
+  margin-right: 7px;
+  font-size: 1.5rem;
+}
+
+#promotion {
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+
