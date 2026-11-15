@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"; // add useEffect here when you enable the fetch below
+import { Link } from "react-router-dom";
 import "./ProfileDesignPage.css";
 // Adjust these paths to where your components live
 import Navbar from "../components/Home/NavBar";
@@ -11,6 +12,11 @@ import Footer from "../components/Home/Footer";
 /* Put the profile picture in /public and match the name below.        */
 /* ------------------------------------------------------------------ */
 const SAMPLE_IMAGE = "/profile.jpg";
+
+// Where the chosen template is remembered for the next step (read it on your next page)
+const SELECTED_KEY = "tfv-selected-profile";
+// Page the pencil icon opens
+const EDIT_PATH = "/profileedits";
 
 const DEMO_GROUPS = [
   {
@@ -67,22 +73,48 @@ const FILTERS = ["All", "Doctor", "Business", "Creator", "Student", "Minimal"];
 /* ------------------------------------------------------------------ */
 /* SMALL COMPONENTS                                                    */
 /* ------------------------------------------------------------------ */
-function TemplateTile({ template }) {
+function TemplateTile({ template, selected, onSelect }) {
   return (
-    <a className="tile" href={`#template-${template._id}`}>
-      <div className="ph">
-        <img
-          src={template.image}
-          alt={`${template.name} profile template`}
-          loading="lazy"
-        />
-        <span className="ph-preview">Preview</span>
-      </div>
-      <div className="nm">
-        {template.name}
-        {template.badge && <i>{template.badge}</i>}
-      </div>
-    </a>
+    <div className={"tile" + (selected ? " is-selected" : "")}>
+      <Link
+        className="edit-btn"
+        to={EDIT_PATH}
+        state={{ templateId: template._id }}
+        aria-label={`Edit ${template.name}`}
+        title="Edit profile"
+        onClick={() => onSelect(template)}
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+          <path d="m15 5 4 4" />
+        </svg>
+      </Link>
+
+      <a className="tile-link" href={`#template-${template._id}`}>
+        <div className="ph">
+          <img
+            src={template.image}
+            alt={`${template.name} profile template`}
+            loading="lazy"
+          />
+          <span className="ph-preview">Preview</span>
+        </div>
+        <div className="nm">
+          {template.name}
+          {template.badge && <i>{template.badge}</i>}
+        </div>
+      </a>
+
+      <button
+        type="button"
+        className="select-btn"
+        aria-pressed={selected}
+        aria-label={`${selected ? "Selected" : "Select"} ${template.name}`}
+        onClick={() => onSelect(template)}
+      >
+        {selected ? "Selected" : "Select"}
+      </button>
+    </div>
   );
 }
 
@@ -105,6 +137,7 @@ function MoreTile() {
 export default function ProfileDesignPage() {
   const [groups, setGroups] = useState(DEMO_GROUPS);
   const [filter, setFilter] = useState("All");
+  const [selectedId, setSelectedId] = useState(null);
 
   /* MongoDB later: call your backend (never connect to Mongo from the browser).
   useEffect(() => {
@@ -114,6 +147,23 @@ export default function ProfileDesignPage() {
       .catch(console.error);
   }, []);
   */
+
+  function handleSelect(template) {
+    setSelectedId(template._id);
+    try {
+      sessionStorage.setItem(
+        SELECTED_KEY,
+        JSON.stringify({
+          _id: template._id,
+          name: template.name,
+          image: template.image,
+        }),
+      );
+    } catch {
+      /* storage unavailable: the selection still shows on this page */
+    }
+    // Next step later: navigate to your next page, e.g. navigate("/dashboard")
+  }
 
   const visibleGroups = useMemo(
     () =>
@@ -131,7 +181,6 @@ export default function ProfileDesignPage() {
 
   return (
     <>
-      {" "}
       <Navbar />
       <div className="pt">
         <div className="wrap">
@@ -157,7 +206,12 @@ export default function ProfileDesignPage() {
               </div>
               <div className="grid">
                 {g.templates.map((t) => (
-                  <TemplateTile template={t} key={t._id} />
+                  <TemplateTile
+                    template={t}
+                    key={t._id}
+                    selected={selectedId === t._id}
+                    onSelect={handleSelect}
+                  />
                 ))}
                 <MoreTile />
               </div>

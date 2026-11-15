@@ -92,3 +92,18 @@
 @media (prefers-reduced-motion:reduce){
   .pt .ph-preview{transition:none}
 }
+
+.pt .tile-link{display:block}
+.pt .select-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;margin-top:12px;border:1.5px solid var(--dark);border-radius:12px;background:transparent;font:inherit;font-weight:500;font-size:14px;cursor:pointer}
+.pt .select-btn[aria-pressed="true"]{background:var(--dark);color:var(--on-dark)}
+.pt .tile.is-selected{box-shadow:0 0 0 2px var(--dark)}
+.pt .select-btn:focus-visible,.pt .tile-link:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (max-width:600px){.pt .select-btn{margin-top:10px;font-size:13px}}
+
+
+.pt .tile{position:relative}
+.pt .edit-btn{position:absolute;top:20px;right:20px;z-index:2;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(20,20,31,.72);backdrop-filter:blur(4px)}
+.pt .edit-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pt a.edit-btn,.pt a.edit-btn:visited,.pt a.edit-btn:hover,.pt a.edit-btn:active{color:#fff}
+.pt .edit-btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px var(--ink)}
+@media (max-width:600px){.pt .edit-btn{top:14px;right:14px}}
