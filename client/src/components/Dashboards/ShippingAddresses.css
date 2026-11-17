@@ -1,0 +1,149 @@
+/* ShippingAddresses component. Everything is scoped under .sa and prefixed sa-.
+   It reads the page's theme variables (--ink, --panel, ...) so it follows the white and dark
+   themes, and falls back to white-theme colours when used on its own. */
+
+.sa{
+  --sa-ink:var(--ink,#111111);
+  --sa-muted:var(--muted,#6b6b6b);
+  --sa-line:var(--line,rgba(0,0,0,.1));
+  --sa-panel:var(--panel,#ffffff);
+  --sa-border:var(--pborder,rgba(0,0,0,.1));
+  --sa-field:var(--field,#f4f4f5);
+  --sa-act:var(--act,#111111);
+  --sa-actfg:var(--actfg,#ffffff);
+  --sa-ring:var(--ring,#111111);
+  --sa-danger:var(--danger,#b42318);
+
+  --sa-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 24px -14px rgba(0,0,0,.18);
+  --sa-shadow-hover:0 2px 4px rgba(0,0,0,.05),0 18px 34px -16px rgba(0,0,0,.28);
+  --sa-ok-bg:#e4f6ea;--sa-ok-fg:#15803d;
+  --sa-overlay:rgba(0,0,0,.45);
+  --sa-dialog-bg:#ffffff;
+
+  max-width:880px;margin:0 auto;color:var(--sa-ink);font-family:inherit;
+}
+
+/* dark theme: plain black and neutral greys, no blue or violet */
+[data-theme="dark"] .sa{
+  --sa-shadow:none;
+  --sa-shadow-hover:0 12px 30px -16px rgba(0,0,0,.9);
+  --sa-ok-bg:rgba(34,197,94,.16);--sa-ok-fg:#4ade80;
+  --sa-overlay:rgba(0,0,0,.7);
+  --sa-dialog-bg:#121212;
+}
+
+.sa *,.sa *::before,.sa *::after{box-sizing:border-box}
+.sa button,.sa input,.sa select,.sa textarea{font:inherit;color:inherit}
+.sa h2,.sa h3,.sa p{margin:0}
+.sa :focus-visible{outline:2px solid var(--sa-ring);outline-offset:2px}
+
+/* ---------- top row ---------- */
+.sa .sa-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:6px}
+.sa .sa-count-line{font-size:17px;font-weight:600}
+.sa .sa-hint{margin-top:4px;max-width:58ch;font-size:13px;line-height:1.45;color:var(--sa-muted)}
+.sa .sa-limit{margin:10px 0 0;padding:10px 14px;border-radius:12px;background:var(--sa-field);font-size:13.5px;color:var(--sa-muted)}
+.sa .sa-list{display:grid;gap:14px;margin-top:20px}
+
+/* ---------- buttons ---------- */
+.sa .sa-primary{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border:0;border-radius:14px;background:var(--sa-act);color:var(--sa-actfg);font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s}
+.sa .sa-primary:hover:not(:disabled){opacity:.88;transform:translateY(-1px)}
+.sa .sa-primary:disabled{opacity:.4;cursor:not-allowed}
+.sa .sa-add{flex:none}
+.sa .sa-ghost{min-height:46px;padding:0 20px;border:1.5px solid var(--sa-line);border-radius:14px;background:transparent;font-size:15px;font-weight:500;cursor:pointer}
+.sa .sa-ghost:hover{background:var(--sa-field)}
+
+/* ---------- address card ---------- */
+.sa .sa-card{padding:18px 20px;background:var(--sa-panel);border:1px solid var(--sa-border);border-radius:20px;box-shadow:var(--sa-shadow);transition:box-shadow .25s,transform .25s;animation:sa-in .35s ease both}
+.sa .sa-card:hover{box-shadow:var(--sa-shadow-hover);transform:translateY(-2px)}
+.sa .sa-card.is-default{border-color:var(--sa-ink);box-shadow:0 0 0 1px var(--sa-ink),var(--sa-shadow)}
+.sa .sa-card-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.sa .sa-card-head h3{margin-right:2px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.sa .sa-tag,.sa .sa-default{display:inline-block;padding:2px 11px;border-radius:999px;font-size:12px;font-weight:600}
+.sa .sa-tag{background:var(--sa-act);color:var(--sa-actfg)}
+.sa .sa-default{background:var(--sa-ok-bg);color:var(--sa-ok-fg)}
+
+.sa .sa-lines{display:grid;gap:7px;margin-top:12px}
+.sa .sa-lines p{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.45;overflow-wrap:anywhere}
+.sa .sa-lines .sa-note-line{display:block;padding-left:28px;font-size:13.5px;color:var(--sa-muted)}
+.sa .sa-ic{flex:none;width:18px;height:18px;margin-top:2px;fill:none;stroke:var(--sa-muted);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.sa .sa-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:16px;padding-top:14px;border-top:1px solid var(--sa-line)}
+.sa .sa-edit{min-height:44px;padding:0 22px;border:1.5px solid var(--sa-ink);border-radius:12px;background:transparent;font-size:15px;font-weight:500;cursor:pointer;transition:background .2s,color .2s}
+.sa .sa-edit:hover{background:var(--sa-act);border-color:var(--sa-act);color:var(--sa-actfg)}
+.sa .sa-link,.sa .sa-delete,.sa .sa-danger{min-height:44px;padding:0 2px;border:0;background:none;font-size:14.5px;font-weight:500;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.sa .sa-delete,.sa .sa-danger{color:var(--sa-danger)}
+.sa .sa-delete{margin-left:auto}
+.sa .sa-confirm span{font-size:14.5px;font-weight:500}
+.sa .sa-confirm .sa-link{margin-left:auto}
+
+/* ---------- empty ---------- */
+.sa .sa-empty{display:grid;justify-items:center;gap:4px;margin-top:20px;padding:48px 20px;text-align:center;color:var(--sa-muted);background:var(--sa-panel);border:1px dashed var(--sa-line);border-radius:22px}
+.sa .sa-empty-ic{display:grid;place-items:center;width:56px;height:56px;margin-bottom:8px;border-radius:50%;background:var(--sa-field)}
+.sa .sa-empty-ic .sa-ic{width:26px;height:26px;margin:0;stroke:var(--sa-ink)}
+.sa .sa-empty b{color:var(--sa-ink);font-size:17px;font-weight:600}
+
+/* ---------- toast ---------- */
+.sa .sa-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:60;transform:translateX(-50%);max-width:calc(100% - 32px);padding:10px 18px;border-radius:999px;background:var(--sa-act);color:var(--sa-actfg);font-size:14px;font-weight:500;box-shadow:0 12px 28px -12px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s}
+.sa .sa-toast:not(:empty){opacity:1}
+
+/* ---------- add / edit dialog ---------- */
+.sa .sa-overlay{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:var(--sa-overlay);backdrop-filter:blur(3px);animation:sa-fade .2s ease both}
+.sa .sa-dialog{width:100%;max-width:560px;max-height:calc(100vh - 32px);overflow-y:auto;padding:20px;background:var(--sa-dialog-bg);color:var(--sa-ink);border:1px solid var(--sa-border);border-radius:24px;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);animation:sa-pop .25s ease both}
+.sa .sa-dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.sa .sa-dialog-head h2{font-size:20px;font-weight:600;letter-spacing:-.01em}
+.sa .sa-x{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:12px;background:none;cursor:pointer}
+.sa .sa-x:hover{background:var(--sa-field)}
+.sa .sa-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+
+.sa .sa-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.sa .sa-full{grid-column:1 / -1}
+.sa .sa-field{display:block;min-width:0}
+.sa .sa-field>span{display:block;margin-bottom:6px;font-size:13px;font-weight:500;color:var(--sa-muted)}
+.sa .sa-field input,.sa .sa-field select,.sa .sa-field textarea{width:100%;min-height:46px;padding:0 14px;border:1px solid var(--sa-line);border-radius:12px;background:var(--sa-field);font-size:16px;transition:border-color .2s,box-shadow .2s}
+.sa .sa-field select{appearance:auto}
+.sa .sa-field textarea{min-height:76px;padding:12px 14px;line-height:1.45;resize:vertical}
+.sa .sa-field input::placeholder,.sa .sa-field textarea::placeholder{color:var(--sa-muted);opacity:.6}
+.sa .sa-field input:focus,.sa .sa-field select:focus,.sa .sa-field textarea:focus{outline:none;border-color:var(--sa-ink);box-shadow:0 0 0 3px var(--sa-line)}
+.sa .sa-field [aria-invalid="true"]{border-color:var(--sa-danger)}
+.sa .sa-err{display:block;margin-top:5px;font-size:12.5px;color:var(--sa-danger)}
+.sa .sa-count{display:block;margin-top:4px;font-size:12px;text-align:right;color:var(--sa-muted)}
+
+.sa .sa-seg{display:inline-flex;padding:3px;border:1px solid var(--sa-line);border-radius:12px;background:var(--sa-field)}
+.sa .sa-seg button{min-height:40px;padding:0 18px;border:0;border-radius:9px;background:none;font-size:14px;cursor:pointer}
+.sa .sa-seg button[aria-pressed="true"]{background:var(--sa-act);color:var(--sa-actfg)}
+
+.sa .sa-check{display:flex;align-items:flex-start;gap:12px;min-height:44px;cursor:pointer;font-size:15px}
+.sa .sa-check input{flex:none;width:20px;height:20px;margin:2px 0 0;accent-color:var(--sa-act)}
+.sa .sa-check small{display:block;margin-top:2px;font-size:12.5px;color:var(--sa-muted)}
+.sa .sa-check.is-locked{cursor:default}
+
+.sa .sa-fine{margin-top:14px;font-size:12.5px;line-height:1.45;color:var(--sa-muted)}
+.sa .sa-dialog-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+
+/* ---------- motion ---------- */
+@keyframes sa-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes sa-fade{from{opacity:0}to{opacity:1}}
+@keyframes sa-pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .sa .sa-card,.sa .sa-overlay,.sa .sa-dialog{animation:none}
+  .sa .sa-card,.sa .sa-primary,.sa .sa-toast{transition:none}
+}
+
+/* ---------- tablet and up ---------- */
+@media (min-width:600px){
+  .sa .sa-grid{grid-template-columns:1fr 1fr}
+}
+
+/* ---------- phones ---------- */
+@media (max-width:600px){
+  .sa .sa-top{flex-direction:column;align-items:stretch}
+  .sa .sa-add{width:100%}
+  .sa .sa-card{padding:16px;border-radius:18px}
+  .sa .sa-actions{gap:4px 14px}
+  .sa .sa-overlay{align-items:end;padding:0}
+  .sa .sa-dialog{max-width:none;max-height:92vh;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));border-radius:24px 24px 0 0}
+  .sa .sa-dialog-foot{position:sticky;bottom:calc(-1 * (18px + env(safe-area-inset-bottom,0px)));margin:18px -16px calc(-1 * (18px + env(safe-area-inset-bottom,0px)));padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--sa-dialog-bg);border-top:1px solid var(--sa-line)}
+  .sa .sa-dialog-foot button{flex:1}
+  .sa .sa-seg{display:flex}
+  .sa .sa-seg button{flex:1;padding:0 10px}
+}

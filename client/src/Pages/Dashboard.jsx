@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import "./Dashboard.css";
 import ProfileEdits from "./ProfileEdits"; // your existing page, adjust the path if needed
 import Insights from "../components/Dashboards/Insights";
+import MyOrders from "../components/Dashboards/MyOrders";
+import ShippingAddresses from "../components/Dashboards/ShippingAddresses";
+
 
 /* ------------------------------------------------------------------ */
 /* SETTINGS                                                            */
@@ -41,6 +44,8 @@ const NAV = [
 const PAGES = {
   profile: ProfileEdits,
   insights: Insights,
+  orders: MyOrders,
+  addr: ShippingAddresses,
 };
 
 const ICONS = {
