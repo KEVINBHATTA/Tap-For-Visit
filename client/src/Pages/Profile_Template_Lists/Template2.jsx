@@ -1,15 +1,15 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Edit from "../components/Edit-icon";
-import Avatar from "../components/Template2/Avatar";
+import Edit from "../../components/Edit-icon";
+import Avatar from "../../components/Template2/Avatar";
 import "./Template2.css";
-import Location from "../components/Location";
-import StatDisplay from "../components/Template2/StatDisplay";
-import About from "../components/Template2/About";
-import Contact from "../components/Template2/Contact";
-import BookContact from "../components/Template2/BookContact";
-import ProfileFooter from "../components/ProfileFooter";
-import Socials from "../components/Template2/Socials";
+import Location from "../../components/Location";
+import StatDisplay from "../../components/Template2/StatDisplay";
+import About from "../../components/Template2/About";
+import Contact from "../../components/Template2/Contact";
+import BookContact from "../../components/Template2/BookContact";
+import ProfileFooter from "../../components/ProfileFooter";
+import Socials from "../../components/Template2/Socials";
 
 function Template({ profileData }) {
   const location = useLocation();

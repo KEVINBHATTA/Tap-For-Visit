@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Template1 from './Pages/Template1.jsx';
+import Template1 from "./Pages/Profile_Template_Lists/Template1.jsx";
 import ProfileEdits from "./Pages/ProfileEdits.jsx";
-import Template2 from "./Pages/Template2.jsx";
+import Template2 from "./Pages/Profile_Template_Lists/Template2.jsx";
 import Home from "./Pages/Home.jsx";
 import {useState} from "react";
 import YourProfile from "./Pages/YourProfile.jsx";

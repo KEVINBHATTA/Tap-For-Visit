@@ -1,14 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CiCamera } from "react-icons/ci";
 import "./ProfileEdits2.css";
 
 import FeatureEdits from "../components/ProfileEdits/FeatureEdits";
 import ToggleSwitch from "../components/ProfileEdits/ToggleSwitch";
 import SaveChange from "../components/ProfileEdits/SaveChange";
-import Template1 from "./Template1"; // src/pages/Template1
+import Template1 from "./Profile_Template_Lists/Template1";
+import Template2 from "./Profile_Template_Lists/Template2";
 import AvatarPopUp, { AvatarCircle } from "../components/ProfileEdits/AvatarPopUp";
 import ProfileFooter from "../components/ProfileFooter";
+import api from "../utils/api";
+import {
+  getSelectedProfileTemplate,
+  getTemplateForProfileId,
+} from "../utils/profileTemplate";
 import {
   loadProfile,
   saveProfile,
@@ -17,8 +23,6 @@ import {
   normalizeProfile,
   validateProfile,
 } from "../components/ProfileEdits/ProfileConfig";
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 // Real phone proportions: a 390 x 844 screen (iPhone 14) plus a 14px bezel.
 const PHONE_W = 418;
@@ -46,9 +50,24 @@ const slug = (text) =>
 
 function ProfileEdits() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Read storage once. `saved` mirrors the server; `draft` is unsaved work.
-  const [initial] = useState(loadProfile);
+  const [initial] = useState(() => {
+    const profile = loadProfile();
+    const selectedTemplate =
+      getTemplateForProfileId(location.state?.templateId) || getSelectedProfileTemplate();
+    if (!selectedTemplate) return profile;
+
+    return {
+      ...profile,
+      draft: {
+        ...(profile.draft ?? profile.saved),
+        template: selectedTemplate,
+        selectedTemplate,
+      },
+    };
+  });
 
   const [savedData, setSavedData] = useState(initial.saved);
   const [formData, setFormData] = useState(initial.draft ?? initial.saved);
@@ -119,16 +138,11 @@ function ProfileEdits() {
 
     setSaving(true);
     try {
-      const res = await fetch(
-        `${API_URL}/api/userProfile/update/${encodeURIComponent(payload.userName)}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        },
+      const { data: result } = await api.put(
+        `/profile/${encodeURIComponent(payload.userName)}`,
+        payload,
       );
-      const result = await res.json().catch(() => ({}));
-      if (!res.ok || !result.success) throw new Error(result.message || "Unknown error");
+      if (!result.success) throw new Error(result.message || "Unknown error");
 
       setFormData(payload);
       setSavedData(payload);
@@ -157,6 +171,7 @@ function ProfileEdits() {
   };
 
   const closeAvatar = useCallback(() => setAvatarOpen(false), []);
+  const PreviewTemplate = formData.template === "template2" ? Template2 : Template1;
 
   return (
     <div className="pe-page">
@@ -196,8 +211,7 @@ function ProfileEdits() {
             <div className="pe-phone" style={{ transform: `scale(${phoneScale})` }}>
               <span className="pe-phone-notch" aria-hidden="true" />
               <div className="pe-phone-screen">
-                {/* Change the prop name if Template1 expects something other than `formData` */}
-                <Template1 formData={formData} />
+                <PreviewTemplate profileData={formData} />
               </div>
               <span className="pe-phone-bar" aria-hidden="true" />
             </div>

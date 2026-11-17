@@ -1,14 +1,14 @@
 import React from "react";
-import Avatar from "../components/Avatar";
-import Post from "../components/Post";
-import Location from "../components/Location";
-import Feature from "../components/Stat1";
-import About from "../components/About";
-import Contact from "../components/Contact";
-import SaveContact from "../components/SaveContact";
-import Edit from "../components/Edit-icon";
+import Avatar from "../../components/Avatar";
+import Post from "../../components/Post";
+import Location from "../../components/Location";
+import Feature from "../../components/Stat1";
+import About from "../../components/About";
+import Contact from "../../components/Contact";
+import SaveContact from "../../components/SaveContact";
+import Edit from "../../components/Edit-icon";
 import "./Template1.css";
-import ProfileFooter from "../components/ProfileFooter";
+import ProfileFooter from "../../components/ProfileFooter";
 import { useLocation } from "react-router-dom";
 
 // 1. Notice we add { profileData } directly into the function arguments here!

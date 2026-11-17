@@ -1,11 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Profile from "./Template1";
-import Template from "./Template2";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Profile from "./Profile_Template_Lists/Template1";
+import Template from "./Profile_Template_Lists/Template2";
+import { useLocation, useParams } from "react-router-dom";
 import PageNotFound from "./PageNotFound";
+import api from "../utils/api";
+import { loadProfile } from "../components/ProfileEdits/ProfileConfig";
+
+function normalizeProfileData(profile) {
+  const stats = profile.stats ?? [];
+  return {
+    ...profile,
+    ...(profile.socials ?? {}),
+    statLabel1: profile.statLabel1 ?? stats[0]?.label ?? "",
+    statValue1: profile.statValue1 ?? stats[0]?.value ?? "",
+    statLabel2: profile.statLabel2 ?? stats[1]?.label ?? "",
+    statValue2: profile.statValue2 ?? stats[1]?.value ?? "",
+    statLabel3: profile.statLabel3 ?? stats[2]?.label ?? "",
+    statValue3: profile.statValue3 ?? stats[2]?.value ?? "",
+  };
+}
 
 function YourProfile({ profileData }) {
   const { username } = useParams();
+  const location = useLocation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -14,7 +31,19 @@ function YourProfile({ profileData }) {
     setLoading(true);
     setNotFound(false);
 
-    // 1. MATCH PASSING PROPS FIRST (Active Session Creator)
+    // 1. Use the profile just saved by the editor before any cached copy.
+    const navigatedProfile = location.state;
+    if (
+      navigatedProfile &&
+      (navigatedProfile.userName?.toLowerCase() === username?.toLowerCase() ||
+        navigatedProfile.username?.toLowerCase() === username?.toLowerCase())
+    ) {
+      setData(navigatedProfile);
+      setLoading(false);
+      return;
+    }
+
+    // 2. MATCH PASSING PROPS FIRST (Active Session Creator)
     if (profileData && Object.keys(profileData).length > 0 && 
        (profileData.userName?.toLowerCase() === username?.toLowerCase() || profileData.username?.toLowerCase() === username?.toLowerCase())) {
       setData(profileData);
@@ -22,8 +51,8 @@ function YourProfile({ profileData }) {
       return;
     }
 
-    // 2. MATCH LOCAL STORAGE SECOND (Fresh Signup/Refresh Fallback)
-    const localFormData = JSON.parse(localStorage.getItem("profileFormData"));
+    // 3. MATCH LOCAL STORAGE SECOND (Fresh Signup/Refresh Fallback)
+    const localFormData = loadProfile().saved;
     if (localFormData && 
        (localFormData.userName?.toLowerCase() === username?.toLowerCase() || localFormData.username?.toLowerCase() === username?.toLowerCase())) {
       setData(localFormData);
@@ -31,14 +60,13 @@ function YourProfile({ profileData }) {
       return;
     }
 
-    // 3. NO LOCAL MATCH? THEN GO QUERY THE PUBLIC INTERNET/DATABASE
+    // 4. NO LOCAL MATCH? THEN GO QUERY THE PUBLIC INTERNET/DATABASE
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/userProfile/${username}`);
-        const result = await response.json();
+        const { data: result } = await api.get(`/profile/${encodeURIComponent(username)}`);
 
         if (result.success && result.data) {
-          setData(result.data);
+          setData(normalizeProfileData(result.data));
         } else {
           setNotFound(true);
         }
@@ -51,7 +79,7 @@ function YourProfile({ profileData }) {
     };
 
     fetchProfile();
-  }, [username, profileData]);
+  }, [username, profileData, location.state]);
 
   // Loading State Screen
   if (loading) {
@@ -69,7 +97,7 @@ function YourProfile({ profileData }) {
 
   // Normal Layout Rendering
   const finalData = data || {};
-  const chosenTemplate = finalData.selectedTemplate || finalData.template;
+  const chosenTemplate = finalData.template || finalData.selectedTemplate;
 
   if (chosenTemplate === "template2") {
     return <Template profileData={finalData} urlUsername={username} />;

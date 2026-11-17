@@ -4,6 +4,10 @@ import "./ProfileDesignPage.css";
 // Adjust these paths to where your components live
 import Navbar from "../components/Home/NavBar";
 import Footer from "../components/Home/Footer";
+import {
+  getTemplateForProfileId,
+  SELECTED_PROFILE_KEY,
+} from "../utils/profileTemplate";
 
 /* ------------------------------------------------------------------ */
 /* DATA                                                                */
@@ -15,7 +19,6 @@ const SAMPLE_IMAGE = "/profile.jpg";
 const WHATSAPP_URL = "https://wa.me/9779765637618";
 
 // Where the chosen template is remembered for the next step (read it on your next page)
-const SELECTED_KEY = "tfv-selected-profile";
 const EDIT_PATH = "/dashboard";
 
 const DEMO_GROUPS = [
@@ -152,11 +155,12 @@ export default function ProfileDesignPage() {
     setSelectedId(template._id);
     try {
       sessionStorage.setItem(
-        SELECTED_KEY,
+        SELECTED_PROFILE_KEY,
         JSON.stringify({
           _id: template._id,
           name: template.name,
           image: template.image,
+          template: getTemplateForProfileId(template._id),
         }),
       );
     } catch {
