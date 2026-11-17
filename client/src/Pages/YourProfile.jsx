@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
-import Profile from "./Profile_Template_Lists/Template1";
-import Template from "./Profile_Template_Lists/Template2";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PageNotFound from "./PageNotFound";
 import api from "../utils/api";
 import { loadProfile } from "../components/ProfileEdits/ProfileConfig";
+
+const Profile = lazy(() => import("./Profile_Template_Lists/Template1"));
+const Template = lazy(() => import("./Profile_Template_Lists/Template2"));
 
 function normalizeProfileData(profile) {
   const stats = profile.stats ?? [];
@@ -98,12 +99,13 @@ function YourProfile({ profileData }) {
   // Normal Layout Rendering
   const finalData = data || {};
   const chosenTemplate = finalData.template || finalData.selectedTemplate;
+  const SelectedTemplate = chosenTemplate === "template2" ? Template : Profile;
 
-  if (chosenTemplate === "template2") {
-    return <Template profileData={finalData} urlUsername={username} />;
-  }
-
-  return <Profile profileData={finalData} urlUsername={username} />;
+  return (
+    <Suspense fallback={<p role="status">Loading profile...</p>}>
+      <SelectedTemplate profileData={finalData} urlUsername={username} />
+    </Suspense>
+  );
 }
 
 export default YourProfile;

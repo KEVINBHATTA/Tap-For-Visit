@@ -1,9 +1,7 @@
+import { lazy, Suspense, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Template1 from "./Pages/Profile_Template_Lists/Template1.jsx";
 import ProfileEdits from "./Pages/ProfileEdits.jsx";
-import Template2 from "./Pages/Profile_Template_Lists/Template2.jsx";
 import Home from "./Pages/Home.jsx";
-import {useState} from "react";
 import YourProfile from "./Pages/YourProfile.jsx";
 import AuthPage from "./Pages/AuthPage.jsx";
 import HowItWorks from "./Pages/HowItsWork.jsx";
@@ -14,6 +12,9 @@ import CardOrder from "./Pages/CardOrder.jsx";
 import ConfirmOrder from "./Pages/ConfirmOrder.jsx";
 import OrderPlaced from "./Pages/OrderPlaced.jsx";
 import Dashboard from "./Pages/Dashboard.jsx";
+
+const Template1 = lazy(() => import("./Pages/Profile_Template_Lists/Template1.jsx"));
+const Template2 = lazy(() => import("./Pages/Profile_Template_Lists/Template2.jsx"));
 
 
 
@@ -36,9 +37,23 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/signin" element={<AuthPage/>} />
         <Route path="/howitsworks" element={<HowItWorks/>}/>
-        <Route path="/Template1" element={<Template1 />} />
+        <Route
+          path="/Template1"
+          element={
+            <Suspense fallback={<p role="status">Loading profile...</p>}>
+              <Template1 />
+            </Suspense>
+          }
+        />
         <Route path="/ProfileEdits" element={<ProfileEdits />} />
-        <Route path="/Template2" element={<Template2 />} />
+        <Route
+          path="/Template2"
+          element={
+            <Suspense fallback={<p role="status">Loading profile...</p>}>
+              <Template2 />
+            </Suspense>
+          }
+        />
         <Route path="/:username" element={<YourProfile profileData={globalProfileData} />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/CardDesign" element={<CardDesignPage/>} />

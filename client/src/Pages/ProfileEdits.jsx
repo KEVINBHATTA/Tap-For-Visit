@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CiCamera } from "react-icons/ci";
 import "./ProfileEdits2.css";
@@ -6,8 +6,6 @@ import "./ProfileEdits2.css";
 import FeatureEdits from "../components/ProfileEdits/FeatureEdits";
 import ToggleSwitch from "../components/ProfileEdits/ToggleSwitch";
 import SaveChange from "../components/ProfileEdits/SaveChange";
-import Template1 from "./Profile_Template_Lists/Template1";
-import Template2 from "./Profile_Template_Lists/Template2";
 import AvatarPopUp, { AvatarCircle } from "../components/ProfileEdits/AvatarPopUp";
 import ProfileFooter from "../components/ProfileFooter";
 import api from "../utils/api";
@@ -27,6 +25,9 @@ import {
 // Real phone proportions: a 390 x 844 screen (iPhone 14) plus a 14px bezel.
 const PHONE_W = 418;
 const PHONE_H = 872;
+
+const Template1 = lazy(() => import("./Profile_Template_Lists/Template1"));
+const Template2 = lazy(() => import("./Profile_Template_Lists/Template2"));
 
 /** Scale factor that keeps the whole phone visible in the current window height. */
 function usePhoneScale() {
@@ -211,7 +212,9 @@ function ProfileEdits() {
             <div className="pe-phone" style={{ transform: `scale(${phoneScale})` }}>
               <span className="pe-phone-notch" aria-hidden="true" />
               <div className="pe-phone-screen">
-                <PreviewTemplate profileData={formData} />
+                <Suspense fallback={<p role="status">Loading preview...</p>}>
+                  <PreviewTemplate profileData={formData} />
+                </Suspense>
               </div>
               <span className="pe-phone-bar" aria-hidden="true" />
             </div>
