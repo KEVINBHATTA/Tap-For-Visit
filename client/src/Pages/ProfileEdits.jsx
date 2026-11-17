@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiCamera } from "react-icons/ci";
 import "./ProfileEdits2.css";
 
 import FeatureEdits from "../components/ProfileEdits/FeatureEdits";
-import Link from "../components/ProfileEdits/Link";
 import ToggleSwitch from "../components/ProfileEdits/ToggleSwitch";
 import SaveChange from "../components/ProfileEdits/SaveChange";
 import Template1 from "./Template1"; // src/pages/Template1
@@ -49,11 +48,10 @@ function ProfileEdits() {
   const navigate = useNavigate();
 
   // Read storage once. `saved` mirrors the server; `draft` is unsaved work.
-  const initial = useRef(null);
-  if (initial.current === null) initial.current = loadProfile();
+  const [initial] = useState(loadProfile);
 
-  const [savedData, setSavedData] = useState(initial.current.saved);
-  const [formData, setFormData] = useState(initial.current.draft ?? initial.current.saved);
+  const [savedData, setSavedData] = useState(initial.saved);
+  const [formData, setFormData] = useState(initial.draft ?? initial.saved);
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
@@ -94,8 +92,7 @@ function ProfileEdits() {
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => {
       if (!prev[name]) return prev;
-      const { [name]: _removed, ...rest } = prev;
-      return rest;
+      return Object.fromEntries(Object.entries(prev).filter(([field]) => field !== name));
     });
   }, []);
 
@@ -188,7 +185,6 @@ function ProfileEdits() {
           </section>
 
           <FeatureEdits formData={formData} handleOnChange={handleChange} errors={errors} />
-          <Link formData={formData} handleOnChange={handleChange} errors={errors} />
           <ToggleSwitch formData={formData} handleOnChange={handleChange} />
         </main>
 

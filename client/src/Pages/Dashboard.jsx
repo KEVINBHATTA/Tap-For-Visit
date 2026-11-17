@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Dashboard.css";
 import ProfileEdits from "./ProfileEdits"; // your existing page, adjust the path if needed
 import Insights from "../components/Dashboards/Insights";
+import Links from "../components/Dashboards/Link";
 import MyOrders from "../components/Dashboards/MyOrders";
 import ShippingAddresses from "../components/Dashboards/ShippingAddresses";
 
@@ -31,7 +32,7 @@ const DEMO_NOTIFICATIONS = [
 const NAV = [
   { key: "profile", label: "Profile Edits", icon: "user" },
   { key: "insights", label: "Insights", icon: "bars" },
-  { key: "links", label: "Links", icon: "link", route: "/dashboard/links", desc: "Add, edit, delete, drag to reorder, on/off toggle per link. Icon is detected from the URL." },
+  { key: "links", label: "Links", icon: "link", route: "/dashboard/links", desc: "Add, edit, and remove contact and social links on your profile." },
   { key: "orders", label: "My Orders", icon: "box", route: "/dashboard/orders", desc: "Order list, newest first, with status chips and a Track button. Detail page has the tracking timeline." },
   { key: "addr", label: "Shipping Addresses", icon: "pin", route: "/dashboard/addresses", desc: "Up to 3 saved addresses with one default. Nepal fields: province, district, municipality, ward, landmark." },
   { key: "qr", label: "My QR & Card", icon: "qr", route: "/dashboard/qr", desc: "QR preview with PNG download, profile URL with copy, native share, NFC card status." },
@@ -44,6 +45,7 @@ const NAV = [
 const PAGES = {
   profile: ProfileEdits,
   insights: Insights,
+  links: Links,
   orders: MyOrders,
   addr: ShippingAddresses,
 };
